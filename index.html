@@ -1,0 +1,1104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Modern Genset Panel V3</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            slate: {
+              750: '#293548',
+              800: '#1e293b',
+              850: '#151f32',
+              900: '#0f172a',
+              950: '#050b14',
+            },
+            emerald: {
+              400: '#34d399',
+              500: '#10b981',
+            },
+            amber: {
+              400: '#fbbf24',
+              500: '#f59e0b',
+            },
+            blue: {
+              400: '#60a5fa',
+              500: '#3b82f6',
+              600: '#2563eb',
+            },
+            gray: {
+              50: '#f9fafb',
+              100: '#f3f4f6',
+              200: '#e5e7eb',
+              300: '#d1d5db',
+              400: '#9ca3af',
+              500: '#6b7280',
+              600: '#4b5563',
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    body {
+      background-color: #0c1424;
+      color: #f8fafc;
+      font-family: system-ui, -apple-system, sans-serif;
+      background-image: radial-gradient(circle at 50% 0%, #131f2e 0%, #0c1424 70%);
+      background-attachment: fixed;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      margin: 0;
+    }
+    
+    .gen-circle {
+      width: 110px;
+      height: 110px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      background: radial-gradient(circle, rgba(16, 185, 129, 0.15) 0%, transparent 70%);
+      border: 2px solid #10b981;
+      box-shadow: 0 0 25px rgba(16, 185, 129, 0.2);
+      color: #10b981;
+    }
+
+    .genset-diagram-visual {
+      width: min(100%, 224px);
+      margin: 0 auto 1.25rem;
+    }
+
+    .genset-diagram-panel {
+      --diagram-stroke: #10b981;
+      --diagram-stroke-muted: #94a3b8;
+      --diagram-stroke-soft: rgba(241, 245, 249, 0.58);
+      --diagram-text: #f1f5f9;
+      --diagram-glow:
+        drop-shadow(0 0 12px rgba(16, 185, 129, 0.75))
+        drop-shadow(0 0 24px rgba(16, 185, 129, 0.45))
+        drop-shadow(0 0 40px rgba(16, 185, 129, 0.24));
+      border: 1px solid #1e293b;
+      border-radius: 1.25rem;
+      background: linear-gradient(180deg, rgba(15, 23, 42, 0.95), rgba(10, 16, 29, 0.98));
+      box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.03),
+        0 20px 40px rgba(0, 0, 0, 0.26);
+      padding: 0.75rem;
+    }
+
+    .genset-diagram-svg {
+      display: block;
+      width: 100%;
+      height: auto;
+      overflow: visible;
+    }
+
+    .genset-diagram-stroke {
+      stroke: var(--diagram-stroke);
+      stroke-width: 2.4;
+      stroke-linecap: square;
+      stroke-linejoin: round;
+      vector-effect: non-scaling-stroke;
+      filter: var(--diagram-glow);
+    }
+
+    .genset-diagram-fill {
+      fill: rgba(16, 185, 129, 0.035);
+      stroke: var(--diagram-stroke);
+      stroke-width: 2.4;
+      vector-effect: non-scaling-stroke;
+      filter: var(--diagram-glow);
+    }
+
+    .genset-diagram-label {
+      fill: var(--diagram-text);
+      font-size: 10.5px;
+      font-weight: 500;
+      letter-spacing: 0.03em;
+      text-anchor: middle;
+      dominant-baseline: middle;
+    }
+
+    .genset-diagram-label-small {
+      fill: rgba(241, 245, 249, 0.92);
+      font-size: 9.5px;
+      font-weight: 500;
+      letter-spacing: 0.03em;
+      text-anchor: middle;
+      dominant-baseline: middle;
+    }
+
+    .genset-diagram-terminal {
+      fill: none;
+      stroke: var(--diagram-stroke);
+      stroke-width: 2.4;
+      vector-effect: non-scaling-stroke;
+      filter: var(--diagram-glow);
+    }
+
+    .genset-diagram-panel-box {
+      fill: rgba(10, 16, 29, 0.9);
+      stroke: var(--diagram-stroke-soft);
+      stroke-width: 1.4;
+      vector-effect: non-scaling-stroke;
+    }
+
+    .genset-diagram-dash {
+      stroke-dasharray: 5 4;
+    }
+
+    .genset-diagram-muted {
+      stroke: var(--diagram-stroke-muted);
+      filter: none;
+    }
+
+    /* Dense Metric Cards */
+    .metric-card {
+      background-color: #0f172a;
+      border: 1px solid #1e293b;
+      border-radius: 0.5rem;
+      padding: 0.875rem 1rem;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      transition: border-color 0.2s;
+    }
+    
+    .metric-card:hover {
+      border-color: #334155;
+    }
+
+    .icon-box {
+      width: 2.75rem;
+      height: 2.75rem;
+      border-radius: 0.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .metric-content {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      min-width: 0;
+    }
+
+    .metric-label {
+      font-size: 0.75rem;
+      color: #94a3b8;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      margin-bottom: 0.125rem;
+    }
+
+    .metric-value {
+      font-size: 1.125rem;
+      font-weight: 600;
+      color: #f8fafc;
+      display: flex;
+      align-items: baseline;
+      gap: 0.25rem;
+      line-height: 1.2;
+    }
+
+    .metric-unit {
+      font-size: 0.75rem;
+      color: #64748b;
+      font-weight: 400;
+    }
+
+    /* Buttons */
+    .btn-control {
+      background-color: #1e293b;
+      color: #cbd5e1;
+      border: 1px solid #334155;
+      padding: 0.5rem 1rem;
+      border-radius: 0.375rem;
+      font-size: 0.875rem;
+      font-weight: 500;
+      transition: all 0.2s;
+      width: 100%;
+    }
+    .btn-control:hover {
+      background-color: #334155;
+      color: white;
+    }
+    
+    .btn-primary {
+      background-color: #10b981;
+      color: #022c22;
+      border: 1px solid #059669;
+      box-shadow: 0 0 10px rgba(16, 185, 129, 0.2);
+    }
+    .btn-primary:hover {
+      background-color: #059669;
+      color: white;
+    }
+
+    /* Setpoint Cards */
+    .setpoint-card {
+      background-color: #0f172a;
+      border: 1px solid #1e293b;
+      border-radius: 0.5rem;
+      padding: 1.25rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+
+    /* V3 Operator Panel Style */
+    .operator-panel {
+      background: linear-gradient(to bottom, #9ca3af, #d1d5db);
+      border-radius: 0.5rem;
+      padding: 0.5rem;
+      width: 100%;
+      height: 100%;
+      box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+      border: 1px solid #6b7280;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .engine-diagnostics-row .engine-diagnostics-main {
+      flex: 1 1 0%;
+      min-width: 0;
+    }
+
+    .status-states-row .operator-panel {
+      flex: 1 1 0%;
+      min-width: 0;
+      width: auto;
+      max-width: 100%;
+    }
+
+    .status-states-control-stack {
+      background-color: #080f1c;
+      border: 1px solid #1e293b;
+      border-radius: 0.5rem;
+      padding: 0.75rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      width: 100%;
+      flex-shrink: 0;
+    }
+
+    @media (min-width: 1024px) {
+      .status-states-control-stack {
+        width: 11rem;
+        max-width: 11rem;
+      }
+    }
+
+    .btn-status-stack {
+      appearance: none;
+      width: 100%;
+      margin: 0;
+      padding: 0.625rem 0.75rem;
+      border-radius: 0.375rem;
+      font-size: 0.875rem;
+      font-weight: 600;
+      font-family: inherit;
+      text-align: center;
+      cursor: pointer;
+      transition: background-color 0.15s, border-color 0.15s, color 0.15s;
+    }
+
+    .btn-status-stack--start {
+      background-color: #10b981;
+      color: #020617;
+      border: 1px solid #059669;
+      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.25);
+    }
+
+    .btn-status-stack--start:hover {
+      background-color: #059669;
+      color: #f8fafc;
+    }
+
+    .btn-status-stack--secondary {
+      background-color: rgba(30, 41, 59, 0.95);
+      color: #f8fafc;
+      border: 1px solid #475569;
+    }
+
+    .btn-status-stack--secondary:hover {
+      background-color: #334155;
+      border-color: #64748b;
+    }
+
+    .panel-header {
+      background: linear-gradient(to bottom, #6b7280, #4b5563);
+      color: white;
+      padding: 0.25rem 0.75rem;
+      font-weight: 600;
+      font-size: 0.875rem;
+      border-top-left-radius: 0.375rem;
+      border-top-right-radius: 0.375rem;
+      margin: -0.5rem -0.5rem 0.5rem -0.5rem;
+      text-shadow: 0 1px 2px rgba(0,0,0,0.5);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .panel-content {
+      display: flex;
+      gap: 0.5rem;
+      align-items: center;
+      justify-content: space-between;
+      flex-grow: 1;
+    }
+
+    /* Column Styles */
+    .control-column {
+      background-color: #d1d5db;
+      border: 1px solid #9ca3af;
+      border-radius: 0.25rem;
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+      height: 100%;
+      box-shadow: inset 0 1px 3px rgba(255,255,255,0.5);
+    }
+
+    .column-header {
+      color: white;
+      font-weight: 600;
+      font-size: 0.75rem;
+      padding: 0.25rem 0.5rem;
+      text-shadow: 0 1px 1px rgba(0,0,0,0.3);
+    }
+
+    /* Button Styles */
+    .btn-v3 {
+      background: linear-gradient(to bottom, #f3f4f6, #d1d5db);
+      border: 1px solid #9ca3af;
+      border-top-color: #e5e7eb;
+      color: #374151;
+      font-weight: 500;
+      font-size: 0.875rem;
+      padding: 0.5rem;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.1s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-grow: 1;
+    }
+
+    .btn-v3:hover {
+      background: linear-gradient(to bottom, #e5e7eb, #9ca3af);
+    }
+
+    .btn-v3:active {
+      background: #9ca3af;
+      box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+      border-top-color: #6b7280;
+    }
+
+    .btn-v3.active-blue {
+      background: linear-gradient(to bottom, #60a5fa, #3b82f6);
+      color: white;
+      border-color: #2563eb;
+      border-top-color: #93c5fd;
+      text-shadow: 0 1px 1px rgba(0,0,0,0.2);
+    }
+
+    .btn-v3.active-blue:hover {
+      background: linear-gradient(to bottom, #3b82f6, #2563eb);
+    }
+
+    .btn-v3.active-green {
+      background: linear-gradient(to bottom, #34d399, #10b981);
+      color: white;
+      border-color: #059669;
+      border-top-color: #6ee7b7;
+      text-shadow: 0 1px 1px rgba(0,0,0,0.2);
+    }
+
+    /* Middle section (Start/Stop) */
+    .middle-controls {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 2px;
+      position: relative;
+      height: 100%;
+    }
+
+    .btn-action {
+      background: linear-gradient(to bottom, #d1d5db, #9ca3af);
+      border: 1px solid #6b7280;
+      color: white;
+      text-shadow: 0 1px 1px rgba(0,0,0,0.3);
+      border-radius: 0.125rem;
+      padding: 0.5rem;
+      font-size: 0.8rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+      width: 70px;
+      height: 48px;
+      text-align: center;
+      position: relative;
+      z-index: 10;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+    }
+
+    .btn-action:hover {
+      background: linear-gradient(to bottom, #e5e7eb, #9ca3af);
+    }
+    
+    .btn-action:active {
+      background: #9ca3af;
+      box-shadow: inset 0 2px 4px rgba(0,0,0,0.2);
+    }
+
+    /* Connector Arrows */
+    .connector {
+      position: absolute;
+      width: 10px;
+      height: 3px;
+      background-color: #9ca3af;
+      top: 50%;
+      z-index: 0;
+    }
+
+    .connector-left {
+      left: -10px; /* Stretch into the margin space */
+    }
+    
+    .connector-left::before {
+      content: '';
+      position: absolute;
+      left: -20px; /* The pointy triangle bit */
+      top: -14.5px;
+      border-top: 16px solid transparent;
+      border-bottom: 16px solid transparent;
+      border-right: 24px solid #9ca3af;
+    }
+
+    .connector-right {
+      right: -16px;
+    }
+
+    .connector-right::after {
+      content: '';
+      position: absolute;
+      right: -2px;
+      top: -3px;
+      border-top: 4px solid transparent;
+      border-bottom: 4px solid transparent;
+      border-left: 6px solid #9ca3af;
+    }
+
+    /* Lock Icon */
+    .lock-icon-container {
+      background: linear-gradient(to bottom, #e5e7eb, #d1d5db);
+      border-top: 1px solid #9ca3af;
+      padding: 0.5rem;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-bottom-left-radius: 0.25rem;
+      border-bottom-right-radius: 0.25rem;
+      margin-top: auto;
+    }
+
+    .lock-icon {
+      color: #b45309;
+      font-size: 1rem;
+      filter: drop-shadow(0 1px 1px rgba(255,255,255,0.8));
+    }
+    
+    .radio-wave {
+      position: absolute;
+      color: #9ca3af;
+      font-size: 0.6rem;
+      top: -6px;
+      left: -8px;
+      transform: rotate(-45deg);
+    }
+
+    .master-card {
+      width: min(96rem, calc(100vw - 2rem));
+      background: linear-gradient(180deg, rgba(8, 12, 24, 0.96), rgba(3, 7, 16, 0.98));
+      border: 1px solid #1e293b;
+      border-radius: 1.5rem;
+      box-shadow:
+        0 24px 60px rgba(0, 0, 0, 0.35),
+        inset 0 1px 0 rgba(255, 255, 255, 0.03);
+      padding: 1.25rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .tab-nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      padding: 0 0.25rem 0.25rem;
+      border-bottom: 1px solid rgba(51, 65, 85, 0.85);
+    }
+
+    .tab-button {
+      appearance: none;
+      border: 1px solid transparent;
+      border-radius: 0.875rem;
+      background: transparent;
+      color: #94a3b8;
+      padding: 0.8rem 1.15rem;
+      font-size: 0.95rem;
+      font-weight: 600;
+      letter-spacing: 0.01em;
+      transition: background-color 0.2s, color 0.2s, border-color 0.2s, box-shadow 0.2s;
+    }
+
+    .tab-button:hover {
+      color: #e2e8f0;
+      background: rgba(15, 23, 42, 0.72);
+      border-color: rgba(51, 65, 85, 0.85);
+    }
+
+    .tab-button.is-active {
+      color: #f8fafc;
+      background: linear-gradient(180deg, rgba(15, 23, 42, 0.98), rgba(8, 15, 30, 0.98));
+      border-color: rgba(71, 85, 105, 0.9);
+      box-shadow:
+        0 0 0 1px rgba(16, 185, 129, 0.14),
+        inset 0 1px 0 rgba(255, 255, 255, 0.05);
+    }
+
+    .tab-button:focus-visible {
+      outline: 2px solid rgba(52, 211, 153, 0.75);
+      outline-offset: 2px;
+    }
+
+    .tab-content {
+      width: 100%;
+      padding-top: 0.25rem;
+    }
+
+    .tab-panel {
+      display: none;
+      width: 100%;
+    }
+
+    .tab-panel.is-active {
+      display: block;
+    }
+  </style>
+</head>
+<body class="min-h-screen p-4 md:p-6 lg:p-8 flex justify-center items-center w-full">
+  <div class="master-card">
+    <div class="tab-nav" role="tablist" aria-label="Genset navigation tabs">
+      <button class="tab-button is-active" type="button" id="tab-overview" role="tab" aria-selected="true" aria-controls="panel-overview" data-tab-target="overview">Overview</button>
+      <button class="tab-button" type="button" id="tab-engine-diagnostics" role="tab" aria-selected="false" aria-controls="panel-engine-diagnostics" data-tab-target="engine-diagnostics" tabindex="-1">Engine Diagnostics</button>
+      <button class="tab-button" type="button" id="tab-status-states" role="tab" aria-selected="false" aria-controls="panel-status-states" data-tab-target="status-states" tabindex="-1">Status / States</button>
+      <button class="tab-button" type="button" id="tab-tag-data" role="tab" aria-selected="false" aria-controls="panel-tag-data" data-tab-target="tag-data" tabindex="-1">Tag Data</button>
+    </div>
+
+    <div class="tab-content">
+      <section class="tab-panel is-active" id="panel-overview" role="tabpanel" aria-labelledby="tab-overview" data-tab-panel="overview">
+        <div class="max-w-[90rem] w-full flex flex-col lg:flex-row items-start gap-6 justify-center">
+    
+    <!-- Left Column: Generator Visual (Compact Sidebar) -->
+    <div class="lg:w-72 flex-shrink-0">
+      
+      <!-- Visualization Card -->
+      <div class="bg-[#0f172a] border border-slate-800 rounded-lg p-5 flex flex-col items-center">
+        <div class="genset-diagram-visual" data-genset-diagram>
+          <div class="genset-diagram-panel">
+            <svg class="genset-diagram-svg" viewBox="0 0 228 612" role="img" aria-label="Single line genset schematic with breakers 52I, 52G, 52X, generator, and EM power distribution">
+              <rect x="0" y="0" width="228" height="612" rx="14" ry="14" fill="rgba(10, 16, 29, 0.08)"/>
+
+              <!-- Main trunk -->
+              <rect class="genset-diagram-fill" x="60" y="24" width="48" height="40" rx="0" ry="0" />
+              <text class="genset-diagram-label" x="84" y="44">52I</text>
+              <line class="genset-diagram-stroke" x1="84" y1="64" x2="84" y2="100" />
+
+              <!-- Transformer under 52I -->
+              <circle class="genset-diagram-fill" cx="84" cy="116" r="15" />
+              <circle class="genset-diagram-fill" cx="84" cy="131" r="15" />
+              <line class="genset-diagram-stroke" x1="84" y1="146" x2="84" y2="226" />
+
+              <!-- 52G on the main run -->
+              <rect class="genset-diagram-fill" x="60" y="226" width="48" height="40" rx="0" ry="0" />
+              <text class="genset-diagram-label" x="84" y="246">52G</text>
+              <line class="genset-diagram-stroke" x1="84" y1="266" x2="84" y2="478" />
+
+              <!-- Branch to 52X leaves above the 52G box -->
+              <line class="genset-diagram-stroke" x1="84" y1="186" x2="144" y2="186" />
+              <line class="genset-diagram-stroke" x1="144" y1="186" x2="144" y2="226" />
+              <rect class="genset-diagram-fill" x="120" y="226" width="48" height="40" rx="0" ry="0" />
+              <text class="genset-diagram-label" x="144" y="246">52X</text>
+              <line class="genset-diagram-stroke" x1="144" y1="266" x2="144" y2="300" />
+
+              <!-- Transformer under 52X -->
+              <circle class="genset-diagram-fill" cx="144" cy="318" r="15" />
+              <circle class="genset-diagram-fill" cx="144" cy="333" r="15" />
+              <line class="genset-diagram-stroke" x1="144" y1="348" x2="144" y2="435.5" />
+
+              <!-- EM PWR DIST -->
+              <rect class="genset-diagram-panel-box" x="160" y="104" width="66" height="42" rx="0" ry="0" />
+              <text class="genset-diagram-label-small" x="193" y="120">
+                <tspan x="193" dy="0">EM PWR</tspan>
+                <tspan x="193" dy="12">DIST</tspan>
+              </text>
+              <line class="genset-diagram-stroke" x1="193" y1="146" x2="193" y2="435.5" />
+
+              <!-- Lower topology -->
+              <circle class="genset-diagram-terminal genset-diagram-muted" cx="144" cy="440" r="4.5" />
+              <circle class="genset-diagram-terminal genset-diagram-muted" cx="168" cy="482" r="4.5" />
+              <circle class="genset-diagram-terminal genset-diagram-muted" cx="193" cy="440" r="4.5" />
+
+              <line class="genset-diagram-stroke genset-diagram-dash genset-diagram-muted" x1="168" y1="444" x2="168" y2="477.5" />
+              <line class="genset-diagram-stroke" x1="168" y1="490" x2="168" y2="522" />
+
+              <!-- Generator -->
+              <circle class="genset-diagram-fill" cx="84" cy="522" r="44" />
+              <path class="genset-diagram-stroke" d="M 68 522 Q 76 508 84 522 T 100 522" fill="none" />
+              <line class="genset-diagram-stroke" x1="128" y1="522" x2="168" y2="522" />
+            </svg>
+          </div>
+        </div>
+        
+        <!-- Status Indicator -->
+        <div class="mt-4 mb-6 px-4 py-1.5 bg-emerald-500/10 text-emerald-400 text-base font-bold rounded-full border border-emerald-500/20 flex items-center gap-2">
+          <div class="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse"></div>
+          G5
+        </div>
+      </div>
+    </div>
+
+    <!-- Right Column: Dense Grid -->
+    <div class="flex-grow flex flex-col gap-4">
+      
+      <!-- Metrics Grid (Top 12 items) -->
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
+        
+        <!-- Operating Hours -->
+        <div class="metric-card">
+          <div class="icon-box bg-emerald-500/10 text-emerald-400">
+            <i class="fa-solid fa-clock text-xl"></i>
+          </div>
+          <div class="metric-content">
+            <div class="metric-label">Operating Hours</div>
+            <div class="metric-value">1,110 <span class="metric-unit">h</span></div>
+          </div>
+        </div>
+
+        <!-- Oil Pressure -->
+        <div class="metric-card">
+          <div class="icon-box bg-amber-500/10 text-amber-400">
+            <i class="fa-solid fa-flask text-xl"></i>
+          </div>
+          <div class="metric-content">
+            <div class="metric-label">Oil Pressure</div>
+            <div class="metric-value">59.25 <span class="metric-unit">psi</span></div>
+          </div>
+        </div>
+
+        <!-- Oil Temperature -->
+        <div class="metric-card">
+          <div class="icon-box bg-orange-500/10 text-orange-400">
+            <i class="fa-solid fa-temperature-half text-xl"></i>
+          </div>
+          <div class="metric-content">
+            <div class="metric-label">Oil Temperature</div>
+            <div class="metric-value">66.7 <span class="metric-unit">°C</span></div>
+          </div>
+        </div>
+
+        <!-- Jacket Temperature -->
+        <div class="metric-card">
+          <div class="icon-box bg-orange-500/10 text-orange-400">
+            <i class="fa-solid fa-temperature-half text-xl"></i>
+          </div>
+          <div class="metric-content">
+            <div class="metric-label">Jacket Temperature</div>
+            <div class="metric-value">74.0 <span class="metric-unit">°C</span></div>
+          </div>
+        </div>
+
+        <!-- Return Temperature -->
+        <div class="metric-card">
+          <div class="icon-box bg-orange-500/10 text-orange-400">
+            <i class="fa-solid fa-temperature-half text-xl"></i>
+          </div>
+          <div class="metric-content">
+            <div class="metric-label">Return Temperature</div>
+            <div class="metric-value">64.9 <span class="metric-unit">°C</span></div>
+          </div>
+        </div>
+
+        <!-- T after TC -->
+        <div class="metric-card">
+          <div class="icon-box bg-red-500/10 text-red-400">
+            <i class="fa-solid fa-temperature-half text-xl"></i>
+          </div>
+          <div class="metric-content">
+            <div class="metric-label">T after TC</div>
+            <div class="metric-value">472 <span class="metric-unit">°C</span></div>
+          </div>
+        </div>
+
+        <!-- T SCR inlet -->
+        <div class="metric-card">
+          <div class="icon-box bg-red-500/10 text-red-400">
+            <i class="fa-solid fa-temperature-half text-xl"></i>
+          </div>
+          <div class="metric-content">
+            <div class="metric-label">T SCR inlet</div>
+            <div class="metric-value">436 <span class="metric-unit">°C</span></div>
+          </div>
+        </div>
+
+        <!-- NO clean -->
+        <div class="metric-card">
+          <div class="icon-box bg-slate-500/10 text-slate-300">
+            <i class="fa-solid fa-flask text-xl"></i>
+          </div>
+          <div class="metric-content">
+            <div class="metric-label">NO clean</div>
+            <div class="metric-value">2.7 <span class="metric-unit">ppm</span></div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Bottom Grid (Powers & Operator Panel) -->
+      <div class="grid grid-cols-1 lg:grid-cols-4 gap-3 mt-1" style="height: 100%;">
+        
+        <!-- Column 1: Generator & Reactive Power -->
+        <div class="flex flex-col gap-3 h-full">
+          <!-- Generator Power (Active) -->
+          <div class="setpoint-card">
+            <div class="flex items-center gap-3">
+              <div class="icon-box bg-emerald-500/10 text-emerald-400 h-9 w-9">
+                <i class="fa-solid fa-bolt text-xl"></i>
+              </div>
+              <span class="text-sm text-slate-400 font-medium">Generator Power</span>
+            </div>
+            <div class="flex items-end justify-between px-1 mt-4">
+              <div class="flex items-baseline gap-1">
+                <span class="text-3xl font-bold text-white">1,624</span>
+                <span class="text-sm text-slate-500 font-medium ml-1">kW</span>
+              </div>
+              <div class="text-lg font-semibold text-emerald-400">49.1%</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Column 2: Setpoints -->
+        <div class="flex flex-col gap-3 h-full">
+          <!-- Power Setpoint (No Toggles) -->
+          <div class="setpoint-card">
+            <div class="flex items-center gap-3">
+              <div class="icon-box bg-slate-800 text-slate-300 h-9 w-9">
+                <i class="fa-solid fa-gear text-xl"></i>
+              </div>
+              <span class="text-sm text-slate-400 font-medium">Power Setpoint</span>
+            </div>
+            <div class="flex items-end justify-between px-1 mt-4">
+              <div class="flex items-baseline gap-1">
+                <span class="text-3xl font-bold text-white">1,640</span>
+                <span class="text-sm text-slate-500 font-medium ml-1">kW</span>
+              </div>
+              <div class="text-lg font-semibold text-slate-300">49.6%</div>
+            </div>
+          </div>
+
+          <!-- Reactive Setpoint (No Toggles) -->
+          <div class="setpoint-card">
+            <div class="flex items-center gap-3">
+              <div class="icon-box bg-slate-800 text-slate-300 h-9 w-9">
+                <i class="fa-solid fa-gear text-xl"></i>
+              </div>
+              <span class="text-sm text-slate-400 font-medium">Reactive Setpoint</span>
+            </div>
+            <div class="flex items-end justify-between px-1 mt-4">
+              <div class="flex items-baseline gap-1">
+                <span class="text-3xl font-bold text-white">8</span>
+                <span class="text-sm text-slate-500 font-medium ml-1">kVAr</span>
+              </div>
+              <div class="text-lg font-semibold text-slate-300">0.2%</div>
+            </div>
+          </div>
+        </div>
+
+
+      </div>
+
+    </div>
+      </section>
+
+      <section class="tab-panel" id="panel-engine-diagnostics" role="tabpanel" aria-labelledby="tab-engine-diagnostics" data-tab-panel="engine-diagnostics" hidden>
+        <div class="max-w-[90rem] w-full mx-auto flex flex-col lg:flex-row lg:items-start gap-4 lg:gap-5 engine-diagnostics-row">
+          <div class="w-full lg:max-w-[17rem] lg:flex-shrink-0 flex flex-col gap-3">
+            <!-- T after TC -->
+            <div class="metric-card">
+              <div class="icon-box bg-red-500/10 text-red-400">
+                <i class="fa-solid fa-temperature-half text-xl"></i>
+              </div>
+              <div class="metric-content">
+                <div class="metric-label">T after TC</div>
+                <div class="metric-value">472 <span class="metric-unit">°C</span></div>
+              </div>
+            </div>
+            <!-- T SCR inlet -->
+            <div class="metric-card">
+              <div class="icon-box bg-red-500/10 text-red-400">
+                <i class="fa-solid fa-temperature-half text-xl"></i>
+              </div>
+              <div class="metric-content">
+                <div class="metric-label">T SCR inlet</div>
+                <div class="metric-value">436 <span class="metric-unit">°C</span></div>
+              </div>
+            </div>
+          </div>
+          <div class="flex flex-col gap-4 justify-center w-full engine-diagnostics-main">
+          <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
+        <!-- Speed -->
+        <div class="metric-card">
+          <div class="icon-box bg-blue-500/10 text-blue-400">
+            <i class="fa-solid fa-bolt text-xl"></i>
+          </div>
+          <div class="metric-content">
+            <div class="metric-label">Speed</div>
+            <div class="metric-value">1,505 <span class="metric-unit">rpm</span></div>
+          </div>
+        </div>
+
+        <!-- Chamber Pressure -->
+        <div class="metric-card">
+          <div class="icon-box bg-blue-500/10 text-blue-400">
+            <i class="fa-solid fa-cloud text-xl"></i>
+          </div>
+          <div class="metric-content">
+            <div class="metric-label">Chamber Pressure</div>
+            <div class="metric-value">107.46 <span class="metric-unit">psi</span></div>
+          </div>
+        </div>
+
+        <!-- Jacket Pressure -->
+        <div class="metric-card">
+          <div class="icon-box bg-blue-500/10 text-blue-400">
+            <i class="fa-solid fa-flask text-xl"></i>
+          </div>
+          <div class="metric-content">
+            <div class="metric-label">Jacket Pressure</div>
+            <div class="metric-value">37.43 <span class="metric-unit">psi</span></div>
+          </div>
+        </div>
+
+        <!-- Urea level -->
+        <div class="metric-card">
+          <div class="icon-box bg-blue-500/10 text-blue-400">
+            <i class="fa-solid fa-flask text-xl"></i>
+          </div>
+          <div class="metric-content">
+            <div class="metric-label">Urea level</div>
+            <div class="metric-value">77 <span class="metric-unit">%</span></div>
+          </div>
+        </div>
+          </div>
+          <div class="grid grid-cols-1 lg:grid-cols-4 gap-3 mt-1" style="height: 100%;">
+        <div class="flex flex-col gap-3 h-full">
+          <!-- Reactive Power (Active) -->
+          <div class="setpoint-card">
+            <div class="flex items-center gap-3">
+              <div class="icon-box bg-blue-500/10 text-blue-400 h-9 w-9">
+                <i class="fa-solid fa-bolt text-xl"></i>
+              </div>
+              <span class="text-sm text-slate-400 font-medium">Reactive Power</span>
+            </div>
+            <div class="flex items-end justify-between px-1 mt-4">
+              <div class="flex items-baseline gap-1">
+                <span class="text-3xl font-bold text-white">40</span>
+                <span class="text-sm text-slate-500 font-medium ml-1">kVAr</span>
+              </div>
+              <div class="text-lg font-semibold text-blue-400">1.1%</div>
+            </div>
+          </div>
+        </div>
+          </div>
+          </div>
+        </div>
+      </section>
+      <section class="tab-panel" id="panel-status-states" role="tabpanel" aria-labelledby="tab-status-states" data-tab-panel="status-states" hidden>
+        <div class="max-w-[90rem] w-full mx-auto flex flex-col lg:flex-row lg:items-start gap-4 lg:gap-5 status-states-row">
+          <div class="status-states-control-stack" aria-label="Genset quick controls">
+            <button type="button" class="btn-status-stack btn-status-stack--start">Start</button>
+            <button type="button" class="btn-status-stack btn-status-stack--secondary">Stop</button>
+            <button type="button" class="btn-status-stack btn-status-stack--secondary">Automatic</button>
+            <button type="button" class="btn-status-stack btn-status-stack--secondary">Alarm Reset</button>
+          </div>
+          <div class="operator-panel min-h-0">
+            <div class="panel-header">
+              <div>Genset Local Operator Panel</div>
+              <div class="px-2 py-0.5 bg-[#0f172a] text-emerald-400 text-xs font-bold rounded-full border border-slate-600 flex items-center gap-1.5 shadow-sm"><div class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse drop-shadow-[0_0_2px_rgba(16,185,129,0.8)]"></div>G5</div>
+            </div>
+            
+            <div class="panel-content">
+              <!-- Operation Column -->
+              <div class="control-column">
+                <div class="column-header text-gray-500">Operation</div>
+                <div class="flex flex-col border-t border-gray-400 flex-grow">
+                  <button class="btn-v3 active-blue">Off</button>
+                  <button class="btn-v3">Man</button>
+                  <button class="btn-v3">Aut</button>
+                </div>
+                <div class="lock-icon-container relative">
+                  <div class="relative">
+                    <i class="fa-solid fa-wifi radio-wave"></i>
+                    <i class="fa-solid fa-lock lock-icon"></i>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Middle Start/Stop Controls -->
+              <div class="middle-controls" style="margin-left: 16px; margin-top: -24px;">
+                <div class="connector connector-left"></div>
+                <button class="btn-action">Start</button>
+                <button class="btn-action">Stop</button>
+              </div>
+
+              <!-- Request Column -->
+              <div class="control-column">
+                <div class="column-header text-gray-500">Request</div>
+                <div class="flex flex-col border-t border-gray-400 flex-grow">
+                  <button class="btn-v3 active-blue">Off</button>
+                  <button class="btn-v3">On</button>
+                  <button class="btn-v3">Remote</button>
+                </div>
+                <div class="lock-icon-container relative">
+                  <div class="relative">
+                    <i class="fa-solid fa-wifi radio-wave"></i>
+                    <i class="fa-solid fa-lock lock-icon"></i>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Synch Column -->
+              <div class="control-column">
+                <div class="column-header text-gray-500">Synch</div>
+                <div class="flex flex-col border-t border-gray-400 flex-grow">
+                  <button class="btn-v3 active-blue">Off</button>
+                  <button class="btn-v3">Man</button>
+                  <button class="btn-v3">Aut</button>
+                </div>
+                <div class="lock-icon-container relative">
+                  <div class="relative">
+                    <i class="fa-solid fa-wifi radio-wave"></i>
+                    <i class="fa-solid fa-lock lock-icon"></i>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </section>
+      <section class="tab-panel tab-panel-empty" id="panel-tag-data" role="tabpanel" aria-labelledby="tab-tag-data" data-tab-panel="tag-data" hidden></section>
+    </div>
+  </div>
+  <script>
+    const tabButtons = document.querySelectorAll('[data-tab-target]');
+    const tabPanels = document.querySelectorAll('[data-tab-panel]');
+
+    function activateTab(target) {
+      tabButtons.forEach((button) => {
+        const isActive = button.dataset.tabTarget === target;
+        button.classList.toggle('is-active', isActive);
+        button.setAttribute('aria-selected', String(isActive));
+        button.tabIndex = isActive ? 0 : -1;
+      });
+
+      tabPanels.forEach((panel) => {
+        const isActive = panel.dataset.tabPanel === target;
+        panel.classList.toggle('is-active', isActive);
+        panel.hidden = !isActive;
+      });
+    }
+
+    tabButtons.forEach((button) => {
+      button.addEventListener('click', () => activateTab(button.dataset.tabTarget));
+    });
+
+    activateTab('overview');
+
+    function measureOverviewPanelHeightPx() {
+      const overview = document.querySelector('[data-tab-panel="overview"]');
+      const tabContent = document.querySelector('.tab-content');
+      if (!overview || !tabContent) return 0;
+
+      if (!overview.hidden && overview.classList.contains('is-active')) {
+        return overview.offsetHeight;
+      }
+
+      const panels = document.querySelectorAll('[data-tab-panel]');
+      const prevStates = [];
+      panels.forEach((p) => {
+        prevStates.push({
+          el: p,
+          hidden: p.hidden,
+          isActive: p.classList.contains('is-active'),
+        });
+        p.hidden = true;
+        p.classList.remove('is-active');
+      });
+
+      overview.hidden = false;
+      overview.classList.add('is-active');
+      overview.style.cssText =
+        'position:absolute;left:-10000px;top:0;width:' +
+        tabContent.clientWidth +
+        'px;visibility:hidden;pointer-events:none;';
+
+      const h = overview.offsetHeight;
+
+      overview.style.cssText = '';
+      prevStates.forEach(({ el, hidden, isActive }) => {
+        el.hidden = hidden;
+        el.classList.toggle('is-active', isActive);
+      });
+
+      return h;
+    }
+
+    function syncTabContentMinHeightToOverview() {
+      const tabContent = document.querySelector('.tab-content');
+      if (!tabContent) return;
+      const h = measureOverviewPanelHeightPx();
+      if (h > 0) {
+        tabContent.style.minHeight = h + 'px';
+      }
+    }
+
+    window.addEventListener('load', () => {
+      requestAnimationFrame(syncTabContentMinHeightToOverview);
+    });
+    window.addEventListener('resize', () => {
+      requestAnimationFrame(syncTabContentMinHeightToOverview);
+    });
+    requestAnimationFrame(syncTabContentMinHeightToOverview);
+  </script>
+</body>
+</html>
