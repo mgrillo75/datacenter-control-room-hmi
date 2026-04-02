@@ -8,37 +8,30 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
     tailwind.config = {
-      theme: {
-        extend: {
-          colors: {
-            slate: {
-              750: '#293548',
-              800: '#1e293b',
-              850: '#151f32',
-              900: '#0f172a',
-              950: '#050b14',
-            },
-            emerald: {
-              400: '#3DB88A',
-              500: '#2B9F78',
-            },
-            amber: {
-              400: '#F0E442',
-              500: '#E69F00',
-            },
-            blue: {
-              400: '#56B4E9',
-              500: '#0072B2',
-              600: '#005A8E',
-            },
-            gray: {
-              50: '#f9fafb',
-              100: '#f3f4f6',
-              200: '#e5e7eb',
-              300: '#d1d5db',
-              400: '#9ca3af',
-              500: '#6b7280',
-              600: '#4b5563',
+        theme: {
+          extend: {
+            colors: {
+              slate: {
+                300: '#b0b8c4',
+                400: '#8892a0',
+                500: '#5c6370',
+                600: '#3a3f4b',
+                750: '#1a1e28',
+                800: '#121620',
+                850: '#0e1118',
+                900: '#0a0d14',
+                950: '#050710',
+              },
+              emerald: { 400: '#2B9F78', 500: '#2B9F78' },
+              amber:   { 400: '#E69F00',   500: '#E69F00'   },
+              orange:  { 400: '#E69F00',   500: '#D55E00' },
+              red:     { 400: '#D55E00', 500: '#D55E00' },
+              blue:    { 400: '#56B4E9', 500: '#0072B2', 600: '#005080' },
+              yellow:  { 400: '#F0E442',   500: '#F0E442'   },
+              gray: {
+                50: '#f0f1f3', 100: '#e0e2e6', 200: '#c8cbd0',
+                300: '#b0b4ba', 400: '#888d96', 500: '#5c6370', 600: '#3a3f4b',
+              }
             }
           }
         }
@@ -47,10 +40,10 @@
   </script>
   <style>
     body {
-      background-color: #0c1424;
+      background-color: #050810;
       color: #f8fafc;
       font-family: system-ui, -apple-system, sans-serif;
-      background-image: radial-gradient(circle at 50% 0%, #131f2e 0%, #0c1424 70%);
+      background-image: radial-gradient(circle at 50% 0%, #0c1220 0%, #050810 70%);
       background-attachment: fixed;
       display: flex;
       justify-content: center;
@@ -67,10 +60,10 @@
       align-items: center;
       justify-content: center;
       position: relative;
-      background: radial-gradient(circle, rgba(86, 180, 233, 0.15) 0%, transparent 70%);
-      border: 2px solid #56B4E9;
-      box-shadow: 0 0 25px rgba(86, 180, 233, 0.2);
-      color: #56B4E9;
+      background: radial-gradient(circle, rgba(43, 159, 120, 0.15) 0%, transparent 70%);
+      border: 2px solid #2B9F78;
+      box-shadow: 0 0 25px rgba(43, 159, 120, 0.2);
+      color: #2B9F78;
     }
 
     .genset-diagram-visual {
@@ -79,17 +72,17 @@
     }
 
     .genset-diagram-panel {
-      --diagram-stroke: #56B4E9;
+      --diagram-stroke: #2B9F78;
       --diagram-stroke-muted: #94a3b8;
       --diagram-stroke-soft: rgba(241, 245, 249, 0.58);
       --diagram-text: #f1f5f9;
       --diagram-glow:
-        drop-shadow(0 0 12px rgba(86, 180, 233, 0.25))
-        drop-shadow(0 0 24px rgba(86, 180, 233, 0.25))
-        drop-shadow(0 0 40px rgba(86, 180, 233, 0.25));
+        drop-shadow(0 0 12px rgba(43, 159, 120, 0.25))
+        drop-shadow(0 0 24px rgba(43, 159, 120, 0.25))
+        drop-shadow(0 0 40px rgba(43, 159, 120, 0.25));
       border: 1px solid #1e293b;
       border-radius: 1.25rem;
-      background: linear-gradient(180deg, rgba(15, 23, 42, 0.95), rgba(10, 16, 29, 0.98));
+      background: linear-gradient(180deg, rgba(8, 12, 20, 0.96), rgba(4, 6, 14, 0.99));
       box-shadow:
         inset 0 1px 0 rgba(255, 255, 255, 0.03),
         0 20px 40px rgba(0, 0, 0, 0.26);
@@ -113,7 +106,7 @@
     }
 
     .genset-diagram-fill {
-      fill: rgba(86, 180, 233, 0.035);
+      fill: rgba(43, 159, 120, 0.035);
       stroke: var(--diagram-stroke);
       stroke-width: 2.4;
       vector-effect: non-scaling-stroke;
@@ -164,8 +157,8 @@
 
     /* Dense Metric Cards */
     .metric-card {
-      background-color: #0f172a;
-      border: 1px solid #1e293b;
+      background-color: #080c14;
+      border: 1px solid rgba(43, 159, 120, 0.15);
       border-radius: 0.5rem;
       padding: 0.875rem 1rem;
       display: flex;
@@ -175,7 +168,7 @@
     }
     
     .metric-card:hover {
-      border-color: #334155;
+      border-color: rgba(43, 159, 120, 0.3);
     }
 
     .icon-box {
@@ -197,7 +190,7 @@
 
     .metric-label {
       font-size: 0.75rem;
-      color: #94a3b8;
+      color: #8892a0;
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
@@ -216,15 +209,15 @@
 
     .metric-unit {
       font-size: 0.75rem;
-      color: #64748b;
+      color: #5c6370;
       font-weight: 400;
     }
 
     /* Buttons */
     .btn-control {
-      background-color: #1e293b;
+      background-color: #0e1118;
       color: #cbd5e1;
-      border: 1px solid #334155;
+      border: 1px solid rgba(43, 159, 120, 0.2);
       padding: 0.5rem 1rem;
       border-radius: 0.375rem;
       font-size: 0.875rem;
@@ -241,7 +234,7 @@
       background-color: #2B9F78;
       color: #022c22;
       border: 1px solid #1F7A5C;
-      box-shadow: 0 0 10px rgba(86, 180, 233, 0.2);
+      box-shadow: 0 0 10px rgba(43, 159, 120, 0.2);
     }
     .btn-primary:hover {
       background-color: #1F7A5C;
@@ -250,8 +243,8 @@
 
     /* Setpoint Cards */
     .setpoint-card {
-      background-color: #0f172a;
-      border: 1px solid #1e293b;
+      background-color: #080c14;
+      border: 1px solid rgba(0, 114, 178, 0.18);
       border-radius: 0.5rem;
       padding: 1.25rem;
       display: flex;
@@ -261,7 +254,7 @@
 
     /* V3 Operator Panel Style */
     .operator-panel {
-      background: linear-gradient(to bottom, #9ca3af, #d1d5db);
+      background: linear-gradient(to bottom, #888d96, #b0b4ba);
       border-radius: 0.5rem;
       padding: 0.5rem;
       width: 100%;
@@ -367,8 +360,8 @@
     }
 
     .status-states-control-stack {
-      background-color: #080f1c;
-      border: 1px solid #1e293b;
+      background-color: #050810;
+      border: 1px solid rgba(43, 159, 120, 0.22);
       border-radius: 0.5rem;
       padding: 0.75rem;
       display: flex;
@@ -459,7 +452,7 @@
     }
 
     .panel-header {
-      background: linear-gradient(to bottom, #6b7280, #4b5563);
+      background: linear-gradient(to bottom, #3a3f4b, #252830);
       color: white;
       padding: 0.25rem 0.75rem;
       font-weight: 600;
@@ -655,8 +648,8 @@
 
     .master-card {
       width: min(96rem, calc(100vw - 2rem));
-      background: linear-gradient(180deg, rgba(8, 12, 24, 0.96), rgba(3, 7, 16, 0.98));
-      border: 1px solid #1e293b;
+      background: linear-gradient(180deg, rgba(5, 8, 16, 0.97), rgba(2, 4, 10, 0.99));
+      border: 1px solid rgba(43, 159, 120, 0.2);
       border-radius: 1.5rem;
       box-shadow:
         0 24px 60px rgba(0, 0, 0, 0.35),
@@ -672,7 +665,7 @@
       flex-wrap: wrap;
       gap: 0.35rem 0.5rem;
       padding: 0 0.25rem 0;
-      border-bottom: 1px solid rgba(86, 180, 233, 0.2);
+      border-bottom: 1px solid rgba(43, 159, 120, 0.2);
     }
 
     .tab-button {
@@ -692,20 +685,20 @@
 
     .tab-button:hover {
       color: #e2e8f0;
-      background: rgba(15, 23, 42, 0.55);
+      background: rgba(8, 12, 20, 0.6);
       border-color: rgba(51, 65, 85, 0.5);
     }
 
     .tab-button.is-active {
       color: #f8fafc;
-      background: linear-gradient(180deg, rgba(17, 26, 46, 0.95), rgba(8, 14, 28, 0.92));
+      background: linear-gradient(180deg, rgba(8, 14, 24, 0.96), rgba(4, 8, 16, 0.94));
       border-color: rgba(71, 85, 105, 0.75);
       border-bottom-color: #56B4E9;
       box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04);
     }
 
     .tab-button:focus-visible {
-      outline: 2px solid rgba(86, 180, 233, 0.75);
+      outline: 2px solid rgba(43, 159, 120, 0.75);
       outline-offset: 2px;
     }
 
@@ -867,8 +860,8 @@
       width: 100%;
       max-width: 15.5rem;
       border-radius: 0.875rem;
-      border: 1px solid rgba(86, 180, 233, 0.25);
-      background: linear-gradient(165deg, rgba(15, 23, 42, 0.92) 0%, rgba(8, 12, 22, 0.97) 100%);
+      border: 1px solid rgba(43, 159, 120, 0.25);
+      background: linear-gradient(165deg, rgba(8, 12, 20, 0.95) 0%, rgba(3, 6, 12, 0.98) 100%);
       box-shadow:
         0 1px 0 rgba(255, 255, 255, 0.04) inset,
         0 12px 32px rgba(0, 0, 0, 0.35);
@@ -1008,9 +1001,9 @@
           </div>
         </div>
 
-        <div class="overview-status-pill bg-emerald-500/10 text-emerald-400 rounded-full border border-emerald-500/25 flex items-center justify-center gap-2">
+        <div class="overview-status-pill rounded-full flex items-center justify-center gap-2" style="background:rgba(43,159,120,0.12);color:#2B9F78;border:1px solid rgba(43,159,120,0.3)">
           <span class="sr-only">Unit status</span>
-          <span class="h-2 w-2 shrink-0 rounded-full bg-emerald-500 shadow-[0_0_8px_rgba(0,114,178,0.65)] animate-pulse" aria-hidden="true"></span>
+          <span class="h-2 w-2 shrink-0 rounded-full animate-pulse" style="background:#2B9F78;box-shadow:0 0 8px rgba(43,159,120,0.65)" aria-hidden="true"></span>
           G5
         </div>
       </div>
@@ -1037,7 +1030,7 @@
         
         <!-- Operating Hours -->
         <div class="metric-card">
-          <div class="icon-box bg-emerald-500/10 text-emerald-400">
+          <div class="icon-box" style="background:rgba(0,114,178,0.12);color:#0072B2">
             <i class="fa-solid fa-clock text-xl"></i>
           </div>
           <div class="metric-content">
@@ -1048,7 +1041,7 @@
 
         <!-- Oil Pressure -->
         <div class="metric-card">
-          <div class="icon-box bg-amber-500/10 text-amber-400">
+          <div class="icon-box" style="background:rgba(230,159,0,0.12);color:#E69F00">
             <i class="fa-solid fa-flask text-xl"></i>
           </div>
           <div class="metric-content">
@@ -1059,7 +1052,7 @@
 
         <!-- Oil Temperature -->
         <div class="metric-card">
-          <div class="icon-box bg-orange-500/10 text-orange-400">
+          <div class="icon-box" style="background:rgba(230,159,0,0.12);color:#E69F00">
             <i class="fa-solid fa-temperature-half text-xl"></i>
           </div>
           <div class="metric-content">
@@ -1070,7 +1063,7 @@
 
         <!-- Jacket Temperature -->
         <div class="metric-card">
-          <div class="icon-box bg-orange-500/10 text-orange-400">
+          <div class="icon-box" style="background:rgba(230,159,0,0.12);color:#E69F00">
             <i class="fa-solid fa-temperature-half text-xl"></i>
           </div>
           <div class="metric-content">
@@ -1081,7 +1074,7 @@
 
         <!-- Return Temperature -->
         <div class="metric-card">
-          <div class="icon-box bg-orange-500/10 text-orange-400">
+          <div class="icon-box" style="background:rgba(230,159,0,0.12);color:#E69F00">
             <i class="fa-solid fa-temperature-half text-xl"></i>
           </div>
           <div class="metric-content">
@@ -1092,7 +1085,7 @@
 
         <!-- T after TC -->
         <div class="metric-card">
-          <div class="icon-box bg-red-500/10 text-red-400">
+          <div class="icon-box" style="background:rgba(213,94,0,0.12);color:#D55E00">
             <i class="fa-solid fa-temperature-half text-xl"></i>
           </div>
           <div class="metric-content">
@@ -1103,7 +1096,7 @@
 
         <!-- T SCR inlet -->
         <div class="metric-card">
-          <div class="icon-box bg-red-500/10 text-red-400">
+          <div class="icon-box" style="background:rgba(213,94,0,0.12);color:#D55E00">
             <i class="fa-solid fa-temperature-half text-xl"></i>
           </div>
           <div class="metric-content">
@@ -1114,7 +1107,7 @@
 
         <!-- NO clean -->
         <div class="metric-card">
-          <div class="icon-box bg-slate-500/10 text-slate-300">
+          <div class="icon-box" style="background:rgba(86,180,233,0.12);color:#56B4E9">
             <i class="fa-solid fa-flask text-xl"></i>
           </div>
           <div class="metric-content">
@@ -1131,41 +1124,41 @@
           <!-- Power Setpoint -->
           <div class="setpoint-card">
             <div class="flex items-center gap-3">
-              <div class="icon-box bg-slate-800 text-slate-300 h-9 w-9">
+              <div class="icon-box h-9 w-9" style="background:rgba(0,114,178,0.12);color:#0072B2">
                 <i class="fa-solid fa-gear text-xl"></i>
               </div>
-              <span class="text-sm text-slate-400 font-medium">Power Setpoint</span>
+              <span class="text-sm font-medium" style="color:#56B4E9">Power Setpoint</span>
             </div>
             <div class="flex items-end justify-between px-0 mt-4">
               <div class="flex items-baseline gap-1">
                 <span class="text-3xl font-bold text-white">1,640</span>
                 <span class="text-sm text-slate-500 font-medium ml-1">kW</span>
               </div>
-              <div class="text-lg font-semibold text-slate-300">49.6%</div>
+              <div class="text-lg font-semibold" style="color:#56B4E9">49.6%</div>
             </div>
           </div>
 
           <!-- Reactive Setpoint -->
           <div class="setpoint-card">
             <div class="flex items-center gap-3">
-              <div class="icon-box bg-slate-800 text-slate-300 h-9 w-9">
+              <div class="icon-box h-9 w-9" style="background:rgba(0,114,178,0.12);color:#0072B2">
                 <i class="fa-solid fa-gear text-xl"></i>
               </div>
-              <span class="text-sm text-slate-400 font-medium">Reactive Setpoint</span>
+              <span class="text-sm font-medium" style="color:#56B4E9">Reactive Setpoint</span>
             </div>
             <div class="flex items-end justify-between px-0 mt-4">
               <div class="flex items-baseline gap-1">
                 <span class="text-3xl font-bold text-white">8</span>
                 <span class="text-sm text-slate-500 font-medium ml-1">kVAr</span>
               </div>
-              <div class="text-lg font-semibold text-slate-300">0.2%</div>
+              <div class="text-lg font-semibold" style="color:#56B4E9">0.2%</div>
             </div>
           </div>
 
           <!-- Generator Power -->
           <div class="setpoint-card">
             <div class="flex items-center gap-3">
-              <div class="icon-box bg-emerald-500/10 text-emerald-400 h-9 w-9">
+              <div class="icon-box h-9 w-9" style="background:rgba(43,159,120,0.12);color:#2B9F78">
                 <i class="fa-solid fa-bolt text-xl"></i>
               </div>
               <span class="text-sm text-slate-400 font-medium">Generator Power</span>
@@ -1175,7 +1168,7 @@
                 <span class="text-3xl font-bold text-white">1,624</span>
                 <span class="text-sm text-slate-500 font-medium ml-1">kW</span>
               </div>
-              <div class="text-lg font-semibold text-emerald-400">49.1%</div>
+              <div class="text-lg font-semibold" style="color:#2B9F78">49.1%</div>
             </div>
           </div>
         </div>
@@ -1184,8 +1177,8 @@
       <div class="operator-panel overview-local-panel flex min-h-0 w-full flex-col">
             <div class="panel-header">
               <div>Genset Local Operator Panel</div>
-              <div class="flex items-center gap-1.5 rounded-full border border-slate-600 bg-[#0f172a] px-2 py-0.5 text-xs font-bold text-emerald-400 shadow-sm">
-                <span class="h-1.5 w-1.5 shrink-0 animate-pulse rounded-full bg-emerald-500 drop-shadow-[0_0_2px_rgba(0,114,178,0.8)]" aria-hidden="true"></span>
+              <div class="flex items-center gap-1.5 rounded-full px-2 py-0.5 text-xs font-bold shadow-sm" style="border:1px solid rgba(43,159,120,0.4);background:#080c14;color:#2B9F78">
+                <span class="h-1.5 w-1.5 shrink-0 animate-pulse rounded-full" style="background:#2B9F78;filter:drop-shadow(0 0 2px rgba(43,159,120,0.8))" aria-hidden="true"></span>
                 G5
               </div>
             </div>
@@ -1255,7 +1248,7 @@
           <div class="w-full lg:max-w-[17rem] lg:flex-shrink-0 flex flex-col gap-3">
             <!-- T after TC -->
             <div class="metric-card">
-              <div class="icon-box bg-red-500/10 text-red-400">
+              <div class="icon-box" style="background:rgba(213,94,0,0.12);color:#D55E00">
                 <i class="fa-solid fa-temperature-half text-xl"></i>
               </div>
               <div class="metric-content">
@@ -1265,7 +1258,7 @@
             </div>
             <!-- T SCR inlet -->
             <div class="metric-card">
-              <div class="icon-box bg-red-500/10 text-red-400">
+              <div class="icon-box" style="background:rgba(213,94,0,0.12);color:#D55E00">
                 <i class="fa-solid fa-temperature-half text-xl"></i>
               </div>
               <div class="metric-content">
@@ -1278,7 +1271,7 @@
           <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
         <!-- Speed -->
         <div class="metric-card">
-          <div class="icon-box bg-blue-500/10 text-blue-400">
+          <div class="icon-box" style="background:rgba(86,180,233,0.12);color:#56B4E9">
             <i class="fa-solid fa-bolt text-xl"></i>
           </div>
           <div class="metric-content">
@@ -1289,7 +1282,7 @@
 
         <!-- Chamber Pressure -->
         <div class="metric-card">
-          <div class="icon-box bg-blue-500/10 text-blue-400">
+          <div class="icon-box" style="background:rgba(86,180,233,0.12);color:#56B4E9">
             <i class="fa-solid fa-cloud text-xl"></i>
           </div>
           <div class="metric-content">
@@ -1300,7 +1293,7 @@
 
         <!-- Jacket Pressure -->
         <div class="metric-card">
-          <div class="icon-box bg-blue-500/10 text-blue-400">
+          <div class="icon-box" style="background:rgba(0,114,178,0.12);color:#0072B2">
             <i class="fa-solid fa-flask text-xl"></i>
           </div>
           <div class="metric-content">
@@ -1311,7 +1304,7 @@
 
         <!-- Urea level -->
         <div class="metric-card">
-          <div class="icon-box bg-blue-500/10 text-blue-400">
+          <div class="icon-box" style="background:rgba(0,114,178,0.12);color:#0072B2">
             <i class="fa-solid fa-flask text-xl"></i>
           </div>
           <div class="metric-content">
@@ -1325,7 +1318,7 @@
           <!-- Reactive Power (Active) -->
           <div class="setpoint-card">
             <div class="flex items-center gap-3">
-              <div class="icon-box bg-blue-500/10 text-blue-400 h-9 w-9">
+              <div class="icon-box h-9 w-9" style="background:rgba(86,180,233,0.12);color:#56B4E9">
                 <i class="fa-solid fa-bolt text-xl"></i>
               </div>
               <span class="text-sm text-slate-400 font-medium">Reactive Power</span>
@@ -1335,7 +1328,7 @@
                 <span class="text-3xl font-bold text-white">40</span>
                 <span class="text-sm text-slate-500 font-medium ml-1">kVAr</span>
               </div>
-              <div class="text-lg font-semibold text-blue-400">1.1%</div>
+              <div class="text-lg font-semibold" style="color:#56B4E9">1.1%</div>
             </div>
           </div>
         </div>
