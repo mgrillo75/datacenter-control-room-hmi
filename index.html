@@ -38,27 +38,6 @@
       gap: 0.75rem;
     }
 
-    .landing-icon {
-      width: 4.5rem;
-      height: 4.5rem;
-      border-radius: 1.25rem;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: rgba(232, 164, 200, 0.08);
-      border: 1px solid rgba(232, 164, 200, 0.2);
-      color: #E8A4C8;
-      font-size: 1.75rem;
-      margin-bottom: 0.5rem;
-    }
-
-    .landing-title {
-      font-size: 1.75rem;
-      font-weight: 700;
-      letter-spacing: -0.01em;
-      color: #f0f0f5;
-    }
-
     .landing-subtitle {
       font-size: 0.95rem;
       color: rgba(200, 180, 195, 0.6);
@@ -149,16 +128,6 @@
     .nav-card--genset .nav-card-label { color: #F0C4DD; }
     .nav-card--breaker .nav-card-label { color: #34d399; }
 
-    .nav-card-desc {
-      font-size: 0.78rem;
-      text-align: center;
-      line-height: 1.45;
-      margin-top: -0.5rem;
-    }
-
-    .nav-card--genset .nav-card-desc { color: rgba(232, 164, 200, 0.5); }
-    .nav-card--breaker .nav-card-desc { color: rgba(52, 211, 153, 0.5); }
-
     .nav-card-arrow {
       font-size: 0.85rem;
       opacity: 0.4;
@@ -177,10 +146,6 @@
 <body>
   <div class="landing-container">
     <div class="landing-header">
-      <div class="landing-icon">
-        <i class="fa-solid fa-bolt"></i>
-      </div>
-      <div class="landing-title">MV Genset Monitoring</div>
       <div class="landing-subtitle">Select a panel to view</div>
     </div>
 
@@ -188,14 +153,12 @@
       <a href="/mv-genset.html" class="nav-card nav-card--genset">
         <div class="nav-card-icon"><i class="fa-solid fa-industry"></i></div>
         <div class="nav-card-label">MV Genset</div>
-        <div class="nav-card-desc">Generator overview, diagnostics & operator panel</div>
         <div class="nav-card-arrow"><i class="fa-solid fa-arrow-right"></i></div>
       </a>
 
       <a href="/mv-breaker-gcb.html" class="nav-card nav-card--breaker">
         <div class="nav-card-icon"><i class="fa-solid fa-toggle-on"></i></div>
         <div class="nav-card-label">MV Breaker - Genset GCB</div>
-        <div class="nav-card-desc">GCB-SEL-751 breaker status, protection & metering</div>
         <div class="nav-card-arrow"><i class="fa-solid fa-arrow-right"></i></div>
       </a>
     </div>
