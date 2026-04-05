@@ -54,12 +54,9 @@
       background-attachment: fixed;
       display: flex;
       justify-content: center;
-      align-items: flex-start;
+      align-items: center;
       min-height: 100vh;
-      width: 100%;
       margin: 0;
-      padding: clamp(5rem, 9vh, 7rem) clamp(1rem, 4vw, 3.5rem) clamp(2rem, 5vh, 4rem);
-      box-sizing: border-box;
     }
     
     .gen-circle {
@@ -82,7 +79,6 @@
     }
 
     .genset-diagram-panel {
-      overflow: visible;
       --diagram-stroke: #10b981;
       --diagram-stroke-muted: #94a3b8;
       --diagram-stroke-soft: rgba(241, 245, 249, 0.58);
@@ -166,6 +162,7 @@
       filter: none;
     }
 
+    /* Dense Metric Cards */
     .metric-card {
       background-color: #0f172a;
       border: 1px solid #1e293b;
@@ -176,7 +173,7 @@
       gap: 1rem;
       transition: border-color 0.2s;
     }
-
+    
     .metric-card:hover {
       border-color: #334155;
     }
@@ -207,41 +204,20 @@
       margin-bottom: 0.125rem;
     }
 
-    .metric-value-row {
+    .metric-value {
+      font-size: 1.125rem;
+      font-weight: 600;
+      color: #f8fafc;
       display: flex;
       align-items: baseline;
       gap: 0.25rem;
       line-height: 1.2;
-      min-width: 0;
-      max-width: 100%;
-      flex-wrap: nowrap;
-    }
-
-    /* Match screen-main .metric-value: value + unit stay adjacent (no flex-grow on number) */
-    .metric-output-field {
-      flex: 0 1 auto;
-      min-width: 0;
-      background: transparent;
-      border: none;
-      color: #f8fafc;
-      font-weight: 600;
-      font-size: 1.125rem;
-      line-height: 1.2;
-      padding: 0;
-      min-height: auto;
-      display: inline-flex;
-      align-items: baseline;
-      justify-content: flex-start;
-      border-radius: 0;
-      box-sizing: border-box;
     }
 
     .metric-unit {
       font-size: 0.75rem;
       color: #64748b;
       font-weight: 400;
-      flex-shrink: 0;
-      line-height: 1.2;
     }
 
     /* Buttons */
@@ -272,6 +248,7 @@
       color: white;
     }
 
+    /* Setpoint Cards */
     .setpoint-card {
       background-color: #0f172a;
       border: 1px solid #1e293b;
@@ -280,39 +257,6 @@
       display: flex;
       flex-direction: column;
       gap: 0.75rem;
-    }
-
-    .setpoint-card .text-sm.font-medium {
-      color: #94a3b8;
-      font-weight: 500;
-    }
-
-    .setpoint-card .setpoint-unit {
-      color: #64748b;
-      font-weight: 500;
-      font-size: 0.75rem;
-    }
-
-    .setpoint-card .metric-output-field--setpoint-main {
-      font-size: 1.875rem;
-      font-weight: 700;
-      min-height: auto;
-      flex: 0 1 auto;
-      min-width: 0;
-    }
-
-    .setpoint-card .metric-output-field--setpoint-pct {
-      font-size: 1.125rem;
-      font-weight: 600;
-      min-height: auto;
-      flex: 0 0 auto;
-      min-width: 3.75rem;
-      color: #60a5fa;
-    }
-
-    .setpoint-card .setpoint-output-row > .flex.items-center {
-      min-width: 0;
-      flex: 1 1 auto;
     }
 
     /* V3 Operator Panel Style */
@@ -478,6 +422,7 @@
       border-color: #64748b;
     }
 
+    /* Mode stack: Block / Manual / Automatic — violet family (distinct from emerald + slate top group) */
     .status-mode-control-stack {
       background: linear-gradient(180deg, rgba(46, 16, 71, 0.5) 0%, rgba(15, 8, 28, 0.96) 100%);
       border: 1px solid rgba(139, 92, 246, 0.42);
@@ -495,8 +440,8 @@
 
     @media (min-width: 1024px) {
       .status-mode-control-stack {
-        width: 12.5rem;
-        max-width: 12.5rem;
+        width: 11rem;
+        max-width: 11rem;
       }
     }
 
@@ -709,7 +654,7 @@
     }
 
     .master-card {
-      width: min(67.5rem, calc(100vw - clamp(5rem, 12vw, 10rem)));
+      width: min(96rem, calc(100vw - 2rem));
       background: linear-gradient(180deg, rgba(8, 12, 24, 0.96), rgba(3, 7, 16, 0.98));
       border: 1px solid #1e293b;
       border-radius: 1.5rem;
@@ -778,7 +723,7 @@
       display: block;
     }
 
-    /* Overview telemetry grid */
+    /* Overview telemetry grid (red): taller cards, larger type */
     .overview-metrics-grid {
       gap: 0.65rem;
     }
@@ -796,17 +741,12 @@
       box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.035);
     }
 
-    /* Single line like reference; overflow visible avoids ellipsis (narrow 3-col grid) */
     .overview-metrics-grid .metric-label {
       font-size: 0.8125rem;
       margin-bottom: 0.2rem;
-      white-space: nowrap;
-      overflow: visible;
-      text-overflow: unset;
-      line-height: 1.25;
     }
 
-    .overview-metrics-grid .metric-output-field {
+    .overview-metrics-grid .metric-value {
       font-size: 1.3125rem;
     }
 
@@ -823,19 +763,62 @@
       font-size: 1.35rem;
     }
 
+    /* Overview power stack (blue): narrower, shorter cards */
+    .overview-power-stack {
+      max-width: 16.5rem;
+    }
+
+    .overview-power-stack .setpoint-card {
+      padding: 0.45rem 0.55rem;
+      gap: 0.3rem;
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.035);
+    }
+
+    .overview-power-stack .setpoint-card > .flex.items-center.gap-3 {
+      gap: 0.4rem;
+    }
+
+    .overview-power-stack .setpoint-card .flex.items-end {
+      margin-top: 0.45rem;
+      justify-content: flex-start;
+      gap: 0.75rem;
+    }
+
+    .overview-power-stack .setpoint-card .icon-box {
+      width: 2rem;
+      height: 2rem;
+    }
+
+    .overview-power-stack .setpoint-card .icon-box i {
+      font-size: 1rem;
+    }
+
+    .overview-power-stack .setpoint-card .text-sm {
+      font-size: 0.6875rem;
+    }
+
+    .overview-power-stack .setpoint-card .text-3xl {
+      font-size: 1.375rem;
+      line-height: 1.2;
+    }
+
+    .overview-power-stack .setpoint-card .text-lg {
+      font-size: 0.9375rem;
+    }
+
     .overview-control-stack {
       width: 100%;
-      max-width: 12.5rem;
+      max-width: 9.5rem;
     }
 
     @media (min-width: 1024px) {
       .overview-control-stack {
-        width: 12.5rem;
-        max-width: 12.5rem;
+        width: 9.5rem;
+        max-width: 9.5rem;
       }
     }
 
-    /* Overview: diagram + controls | metrics + operator bottom row */
+    /* Overview: diagram + controls | metrics + (setpoints | operator bottom row) */
     .overview-left-rail {
       display: flex;
       flex-direction: column;
@@ -863,7 +846,7 @@
         align-items: flex-start;
         align-self: flex-start;
         flex-wrap: nowrap;
-        gap: 1.35rem;
+        gap: 1.75rem;
       }
 
       .overview-controls-wrap {
@@ -880,177 +863,32 @@
       flex-shrink: 0;
     }
 
-    .multi-dropdown-list {
-      list-style: none;
-      margin: 0;
-      padding: 0;
-    }
-
-    .multi-dropdown-list li {
-      margin: 0;
-    }
-
-    .switch {
-      width: 100px;
-      height: 45px;
-    }
-
-    .switch input {
-      display: none;
-    }
-
-    .slider {
-      cursor: pointer;
-      position: relative;
-      width: 100%;
-      height: 100%;
-      background-color: rgb(8, 8, 8);
-      transition: all 0.4s cubic-bezier(0.99, 0.1, 0.1, 0.99);
-      border-radius: 5px;
-      box-shadow:
-        inset 0px 0px 1px 0px rgba(0, 0, 0, 1),
-        inset 90px 0px 50px -50px rgba(126, 4, 4, 0.56);
-      border: 2px solid black;
-    }
-
-    .slider-btn {
-      position: absolute;
-      content: "";
-      aspect-ratio: 6/4;
-      border-radius: 3px;
-      left: 2px;
-      top: 2px;
-      bottom: 2px;
-      right: auto;
-      background: linear-gradient(to bottom, #333333, #242323);
-      border: 1px solid #2b2b2b;
-      background-color: #333333;
-      box-shadow:
-        0px 10px 5px 1px rgba(0, 0, 0, 0.15),
-        inset 10px 0px 10px -5px rgba(126, 4, 4, 0.1);
-      transition: all 0.4s cubic-bezier(0.99, 0.1, 0.1, 0.99);
-      display: flex;
-      align-items: center;
-      justify-content: space-around;
-    }
-
-    .texture {
-      width: 2px;
-      height: 70%;
-      background-color: #202020ea;
-      box-shadow:
-        -0.7px -1.5px 1px 0px rgba(192, 192, 192, 0.3),
-        0px 2px 3px rgba(0, 0, 0, 0.3);
-      transition: 0.25s;
-    }
-
-    .light {
-      width: 4px;
-      height: 4px;
-      border: 1px solid #222121;
-      border-radius: 50%;
-      transition: all 0.4s cubic-bezier(0.99, 0.1, 0.1, 0.99);
-      background-color: rgb(230, 14, 14);
-      box-shadow: 0px 0px 10px 1px rgb(241, 28, 28);
-    }
-
-    .switch input:checked + .slider {
-      box-shadow:
-        inset 0px 0px 1px 0px rgba(0, 0, 0, 1),
-        inset -85px 0px 50px -50px rgba(1, 78, 4, 0.6);
-    }
-
-    .switch input:checked + .slider .slider-btn {
-      transform: translateX(66%);
-      box-shadow:
-        0px 10px 5px 1px rgba(0, 0, 0, 0.15),
-        inset -10px 0px 10px -5px rgba(1, 112, 4, 0.1);
-    }
-
-    .switch input:checked + .slider .slider-btn .light {
-      background-color: rgb(35, 158, 4);
-      box-shadow: 0px 0px 10px 0px rgb(57, 230, 14);
-    }
-
-    .overview-blackstart-selector {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      margin-top: 0;
-      padding-top: 0.15rem;
-    }
-
-    .blackstart-title {
-      font-size: 0.7rem;
-      font-weight: 700;
-      letter-spacing: 0.14em;
-      color: #94a3b8;
-      text-align: center;
-      margin-bottom: 0.45rem;
-    }
-
-    .blackstart-selector-row {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 0.65rem;
-    }
-
-    .blackstart-side-label {
-      font-size: 0.75rem;
-      font-weight: 600;
-      letter-spacing: 0.05em;
-      color: #64748b;
-      min-width: 1.75rem;
-    }
-
-    .blackstart-selector-row .blackstart-side-label:first-of-type {
-      text-align: right;
-    }
-
-    .blackstart-selector-row .blackstart-side-label:last-of-type {
-      text-align: left;
-    }
-
-    .blackstart-selector-row .switch {
-      flex-shrink: 0;
-    }
-
-    /* Overview: single inner ring only — no outer card border */
     .overview-diagram-card {
       width: 100%;
       max-width: 15.5rem;
-      border: none;
-      background: transparent;
-      box-shadow: none;
-      padding: 0;
+      border-radius: 0.875rem;
+      border: 1px solid rgba(51, 65, 85, 0.85);
+      background: linear-gradient(165deg, rgba(15, 23, 42, 0.92) 0%, rgba(8, 12, 22, 0.97) 100%);
+      box-shadow:
+        0 1px 0 rgba(255, 255, 255, 0.04) inset,
+        0 12px 32px rgba(0, 0, 0, 0.35);
+      padding: 0.875rem 0.75rem 1rem;
       display: flex;
       flex-direction: column;
       align-items: center;
-      overflow: visible;
     }
 
     .overview-diagram-card .genset-diagram-visual {
       width: min(100%, 220px);
-      margin: 0 auto;
+      margin: 0 auto 0;
     }
 
     .overview-diagram-card .genset-diagram-panel {
-      position: relative;
       border-radius: 0.75rem;
     }
 
-    .overview-diagram-card .genset-diagram-panel .overview-status-pill {
-      position: absolute;
-      left: 50%;
-      bottom: 0.55rem;
-      transform: translateX(-50%);
-      margin-top: 0;
-      z-index: 2;
-    }
-
     .overview-status-pill {
+      margin-top: 0.875rem;
       padding: 0.35rem 0.85rem;
       font-size: 0.8125rem;
       font-weight: 700;
@@ -1068,7 +906,7 @@
       }
     }
 
-    /* Bottom row: operator panel full width under metric grid */
+    /* Bottom row: setpoints align under first 2 metric columns; operator bottom-right */
     .overview-bottom-row {
       display: grid;
       grid-template-columns: 1fr;
@@ -1077,13 +915,18 @@
 
     @media (min-width: 1024px) {
       .overview-bottom-row {
-        grid-template-columns: 1fr;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
         gap: 1rem 1.25rem;
         align-items: stretch;
       }
 
+      .overview-bottom-row .overview-power-stack {
+        grid-column: 1 / span 2;
+        justify-self: start;
+      }
+
       .overview-bottom-row .overview-operator-sidebar {
-        grid-column: 1 / -1;
+        grid-column: 3 / span 2;
         justify-self: stretch;
         width: 100%;
         max-width: none;
@@ -1092,59 +935,9 @@
         align-items: stretch;
       }
     }
-
-    /* Overview: stretch operator panel to fill space below metrics (align with left rail height) */
-    @media (min-width: 1024px) {
-      #panel-overview .overview-panel {
-        align-items: stretch;
-        min-height: min(30rem, 62vh);
-      }
-
-      #panel-overview .overview-left-rail {
-        align-self: flex-start;
-      }
-
-      #panel-overview .overview-data-region {
-        flex: 1 1 0%;
-        min-height: 0;
-        display: flex;
-        flex-direction: column;
-      }
-
-      #panel-overview .overview-data-region > .overview-metrics-grid {
-        flex-shrink: 0;
-      }
-
-      #panel-overview .overview-bottom-row {
-        display: flex;
-        flex-direction: column;
-        flex: 1 1 auto;
-        min-height: 0;
-      }
-
-      #panel-overview .overview-operator-sidebar {
-        flex: 1 1 auto;
-        min-height: 0;
-        display: flex;
-        flex-direction: column;
-      }
-
-      #panel-overview .overview-operator-sidebar .overview-local-panel.operator-panel {
-        flex: 1 1 auto;
-        min-height: 0;
-      }
-
-      #panel-overview .overview-local-panel .panel-content {
-        flex: 1 1 auto;
-        min-height: 0;
-        align-items: stretch;
-      }
-    }
-
   </style>
 </head>
-<body>
-  <a href="/" style="position:fixed;top:1rem;left:1rem;z-index:9999;display:inline-flex;align-items:center;gap:0.4rem;padding:0.45rem 1rem;border-radius:0.5rem;background:rgba(16,185,129,0.12);border:1px solid rgba(16,185,129,0.35);color:#34d399;font-size:0.82rem;font-weight:600;text-decoration:none;backdrop-filter:blur(8px);transition:background 0.2s,border-color 0.2s,color 0.2s;" onmouseover="this.style.background='rgba(16,185,129,0.22)';this.style.borderColor='rgba(52,211,153,0.55)';this.style.color='#6ee7b7'" onmouseout="this.style.background='rgba(16,185,129,0.12)';this.style.borderColor='rgba(16,185,129,0.35)';this.style.color='#34d399'"><i class="fa-solid fa-arrow-left"></i> Back</a>
+<body class="min-h-screen p-4 md:p-6 lg:p-8 flex justify-center items-center w-full">
   <div class="master-card">
     <div class="tab-nav" role="tablist" aria-label="Genset navigation tabs">
       <button class="tab-button is-active" type="button" id="tab-overview" role="tab" aria-selected="true" aria-controls="panel-overview" data-tab-target="overview">Overview</button>
@@ -1154,15 +947,15 @@
 
     <div class="tab-content">
       <section class="tab-panel is-active" id="panel-overview" role="tabpanel" aria-labelledby="tab-overview" data-tab-panel="overview">
-        <div class="overview-panel max-w-[67.5rem] w-full flex flex-col lg:flex-row items-start lg:items-stretch gap-5 lg:gap-6 justify-center">
+        <div class="overview-panel max-w-[90rem] w-full flex flex-col lg:flex-row items-start gap-5 lg:gap-6 justify-center">
     
     <!-- Left: diagram + controls (top-aligned) -->
     <div class="overview-left-rail">
       <div class="overview-diagram-card flex-shrink-0">
         <div class="genset-diagram-visual" data-genset-diagram>
           <div class="genset-diagram-panel">
-            <svg class="genset-diagram-svg" viewBox="0 0 228 612" overflow="visible" role="img" aria-label="Single line genset schematic with breakers 52I, 52G, 52X, generator, and EM power distribution">
-              <rect x="0" y="0" width="228" height="612" rx="14" ry="14" fill="rgba(16, 185, 129, 0.06)"/>
+            <svg class="genset-diagram-svg" viewBox="0 0 228 612" role="img" aria-label="Single line genset schematic with breakers 52I, 52G, 52X, generator, and EM power distribution">
+              <rect x="0" y="0" width="228" height="612" rx="14" ry="14" fill="rgba(10, 16, 29, 0.08)"/>
 
               <!-- Main trunk -->
               <rect class="genset-diagram-fill" x="60" y="24" width="48" height="40" rx="0" ry="0" />
@@ -1212,16 +1005,17 @@
               <path class="genset-diagram-stroke" d="M 68 522 Q 76 508 84 522 T 100 522" fill="none" />
               <line class="genset-diagram-stroke" x1="128" y1="522" x2="168" y2="522" />
             </svg>
-            <div class="overview-status-pill bg-emerald-500/10 text-emerald-400 rounded-full border border-emerald-500/25 flex items-center justify-center gap-2">
-              <span class="sr-only">Unit status</span>
-              <span class="h-2 w-2 shrink-0 rounded-full bg-emerald-500 shadow-[0_0_8px_rgba(16,185,129,0.65)] animate-pulse" aria-hidden="true"></span>
-              G5
-            </div>
           </div>
+        </div>
+
+        <div class="overview-status-pill bg-emerald-500/10 text-emerald-400 rounded-full border border-emerald-500/25 flex items-center justify-center gap-2">
+          <span class="sr-only">Unit status</span>
+          <span class="h-2 w-2 shrink-0 rounded-full bg-emerald-500 shadow-[0_0_8px_rgba(16,185,129,0.65)] animate-pulse" aria-hidden="true"></span>
+          G5
         </div>
       </div>
 
-      <div class="overview-controls-wrap flex w-full max-w-[12.5rem] flex-col justify-start gap-3">
+      <div class="overview-controls-wrap flex flex-col justify-start gap-3">
         <div class="status-states-control-stack overview-control-stack" aria-label="Genset quick controls">
           <button type="button" class="btn-status-stack btn-status-stack--start">Start</button>
           <button type="button" class="btn-status-stack btn-status-stack--secondary">Stop</button>
@@ -1232,76 +1026,14 @@
           <button type="button" class="btn-status-stack btn-status-stack--mode">Manual</button>
           <button type="button" class="btn-status-stack btn-status-stack--mode">Automatic</button>
         </div>
-
-        <div class="overview-multilevel-dropdown relative w-full shrink-0" aria-label="Engine priority menu">
-          <button id="multiLevelDropdownButton" type="button" class="inline-flex w-full items-center justify-center gap-1 rounded-lg border border-emerald-600 bg-emerald-500 px-4 py-2.5 text-sm font-medium leading-5 text-slate-950 shadow hover:bg-emerald-600 focus:outline-none focus:ring-2 focus:ring-emerald-400/70" aria-expanded="false" aria-haspopup="true" aria-controls="multi-dropdown">
-            Engine Priority
-            <svg class="-me-0.5 ms-1.5 h-4 w-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 9-7 7-7-7"/></svg>
-          </button>
-          <div id="multi-dropdown" class="multi-dropdown-panel absolute left-0 top-full z-20 mt-2 hidden w-44 rounded-lg border border-slate-600/80 bg-[#151f32] shadow-xl shadow-black/40" role="menu">
-            <ul class="multi-dropdown-list p-2 text-sm font-medium text-slate-200" aria-labelledby="multiLevelDropdownButton">
-              <li>
-                <a href="#" class="inline-flex w-full items-center rounded p-2 hover:bg-slate-700/80 hover:text-white">Dashboard</a>
-              </li>
-              <li class="relative">
-                <button id="doubleDropdownButton" type="button" class="inline-flex w-full items-center rounded p-2 text-left hover:bg-slate-700/80 hover:text-white" aria-expanded="false" aria-haspopup="true" aria-controls="doubleDropdown">
-                  Dropdown
-                  <svg class="ms-auto h-4 w-4 rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m9 5 7 7-7 7"/></svg>
-                </button>
-                <div id="doubleDropdown" class="multi-dropdown-panel absolute left-full top-0 z-30 ml-1 hidden w-44 rounded-lg border border-slate-600/80 bg-[#151f32] shadow-xl shadow-black/40" role="menu">
-                  <ul class="multi-dropdown-list p-2 text-sm font-medium text-slate-200" aria-labelledby="doubleDropdownButton">
-                    <li>
-                      <a href="#" class="inline-flex w-full items-center rounded p-2 hover:bg-slate-700/80 hover:text-white">Overview</a>
-                    </li>
-                    <li>
-                      <a href="#" class="inline-flex w-full items-center rounded p-2 hover:bg-slate-700/80 hover:text-white">My downloads</a>
-                    </li>
-                    <li>
-                      <a href="#" class="inline-flex w-full items-center rounded p-2 hover:bg-slate-700/80 hover:text-white">Billing</a>
-                    </li>
-                    <li>
-                      <a href="#" class="inline-flex w-full items-center rounded p-2 hover:bg-slate-700/80 hover:text-white">Rewards</a>
-                    </li>
-                  </ul>
-                </div>
-              </li>
-              <li>
-                <a href="#" class="inline-flex w-full items-center rounded p-2 hover:bg-slate-700/80 hover:text-white">Earnings</a>
-              </li>
-              <li>
-                <a href="#" class="inline-flex w-full items-center rounded p-2 hover:bg-slate-700/80 hover:text-white">Sign out</a>
-              </li>
-            </ul>
-          </div>
-        </div>
-
-        <div class="overview-blackstart-selector w-full shrink-0">
-          <div class="blackstart-title">BLACKSTART</div>
-          <div class="blackstart-selector-row">
-            <span class="blackstart-side-label">ON</span>
-            <label class="switch">
-              <input type="checkbox" aria-label="Blackstart ON or OFF" />
-              <div class="slider">
-                <div class="slider-btn">
-                  <div class="light"></div>
-                  <div class="texture"></div>
-                  <div class="texture"></div>
-                  <div class="texture"></div>
-                  <div class="light"></div>
-                </div>
-              </div>
-            </label>
-            <span class="blackstart-side-label">OFF</span>
-          </div>
-        </div>
       </div>
     </div>
 
-    <!-- Telemetry (left of operator column) -->
-    <div class="overview-data-region flex min-h-0 w-full flex-col gap-3 lg:flex-1">
+    <!-- Telemetry & setpoints (left of operator column) -->
+    <div class="overview-data-region flex flex-col gap-3 w-full">
       
-      <!-- Metrics grid -->
-      <div class="overview-metrics-grid grid grid-cols-2 md:grid-cols-3">
+      <!-- Metrics grid (top 8) -->
+      <div class="overview-metrics-grid grid grid-cols-2 md:grid-cols-4">
         
         <!-- Operating Hours -->
         <div class="metric-card">
@@ -1310,10 +1042,7 @@
           </div>
           <div class="metric-content">
             <div class="metric-label">Operating Hours</div>
-            <div class="metric-value-row">
-              <span class="metric-output-field">1,110</span>
-              <span class="metric-unit">h</span>
-            </div>
+            <div class="metric-value">1,110 <span class="metric-unit">h</span></div>
           </div>
         </div>
 
@@ -1324,24 +1053,40 @@
           </div>
           <div class="metric-content">
             <div class="metric-label">Oil Pressure</div>
-            <div class="metric-value-row">
-              <span class="metric-output-field">59.25</span>
-              <span class="metric-unit">psi</span>
-            </div>
+            <div class="metric-value">59.25 <span class="metric-unit">psi</span></div>
           </div>
         </div>
 
-        <!-- Oil Temp -->
+        <!-- Oil Temperature -->
         <div class="metric-card">
           <div class="icon-box bg-orange-500/10 text-orange-400">
             <i class="fa-solid fa-temperature-half text-xl"></i>
           </div>
           <div class="metric-content">
-            <div class="metric-label">Oil Temp</div>
-            <div class="metric-value-row">
-              <span class="metric-output-field">66.7</span>
-              <span class="metric-unit">°C</span>
-            </div>
+            <div class="metric-label">Oil Temperature</div>
+            <div class="metric-value">66.7 <span class="metric-unit">°C</span></div>
+          </div>
+        </div>
+
+        <!-- Jacket Temperature -->
+        <div class="metric-card">
+          <div class="icon-box bg-orange-500/10 text-orange-400">
+            <i class="fa-solid fa-temperature-half text-xl"></i>
+          </div>
+          <div class="metric-content">
+            <div class="metric-label">Jacket Temperature</div>
+            <div class="metric-value">74.0 <span class="metric-unit">°C</span></div>
+          </div>
+        </div>
+
+        <!-- Return Temperature -->
+        <div class="metric-card">
+          <div class="icon-box bg-orange-500/10 text-orange-400">
+            <i class="fa-solid fa-temperature-half text-xl"></i>
+          </div>
+          <div class="metric-content">
+            <div class="metric-label">Return Temperature</div>
+            <div class="metric-value">64.9 <span class="metric-unit">°C</span></div>
           </div>
         </div>
 
@@ -1352,10 +1097,7 @@
           </div>
           <div class="metric-content">
             <div class="metric-label">T after TC</div>
-            <div class="metric-value-row">
-              <span class="metric-output-field">472</span>
-              <span class="metric-unit">°C</span>
-            </div>
+            <div class="metric-value">472 <span class="metric-unit">°C</span></div>
           </div>
         </div>
 
@@ -1366,37 +1108,84 @@
           </div>
           <div class="metric-content">
             <div class="metric-label">T SCR inlet</div>
-            <div class="metric-value-row">
-              <span class="metric-output-field">436</span>
-              <span class="metric-unit">°C</span>
-            </div>
+            <div class="metric-value">436 <span class="metric-unit">°C</span></div>
           </div>
         </div>
 
-        <!-- Return Temp (row 2 col 3 — under Oil Temp) -->
+        <!-- NO clean -->
         <div class="metric-card">
-          <div class="icon-box bg-orange-500/10 text-orange-400">
-            <i class="fa-solid fa-temperature-half text-xl"></i>
+          <div class="icon-box bg-slate-500/10 text-slate-300">
+            <i class="fa-solid fa-flask text-xl"></i>
           </div>
           <div class="metric-content">
-            <div class="metric-label">Return Temp</div>
-            <div class="metric-value-row">
-              <span class="metric-output-field">64.9</span>
-              <span class="metric-unit">°C</span>
-            </div>
+            <div class="metric-label">NO clean</div>
+            <div class="metric-value">2.7 <span class="metric-unit">ppm</span></div>
           </div>
         </div>
 
       </div>
 
-      <!-- Bottom: local operator panel -->
-      <div class="overview-bottom-row mt-0.5 min-h-0 gap-3 lg:flex lg:flex-1 lg:flex-col">
-        <div class="overview-operator-sidebar flex min-h-0 w-full shrink-0 flex-col lg:flex-1">
-      <div class="operator-panel overview-local-panel flex min-h-0 w-full flex-col lg:flex-1">
+      <!-- Bottom: setpoints (left) + local operator panel (right), aligned under metric grid -->
+      <div class="overview-bottom-row mt-0.5 gap-3">
+        <div class="overview-power-stack flex min-w-0 w-full max-w-full flex-col gap-1.5 lg:max-w-none">
+          <!-- Power Setpoint -->
+          <div class="setpoint-card">
+            <div class="flex items-center gap-3">
+              <div class="icon-box bg-slate-800 text-slate-300 h-9 w-9">
+                <i class="fa-solid fa-gear text-xl"></i>
+              </div>
+              <span class="text-sm text-slate-400 font-medium">Power Setpoint</span>
+            </div>
+            <div class="flex items-end justify-between px-0 mt-4">
+              <div class="flex items-baseline gap-1">
+                <span class="text-3xl font-bold text-white">1,640</span>
+                <span class="text-sm text-slate-500 font-medium ml-1">kW</span>
+              </div>
+              <div class="text-lg font-semibold text-slate-300">49.6%</div>
+            </div>
+          </div>
+
+          <!-- Reactive Setpoint -->
+          <div class="setpoint-card">
+            <div class="flex items-center gap-3">
+              <div class="icon-box bg-slate-800 text-slate-300 h-9 w-9">
+                <i class="fa-solid fa-gear text-xl"></i>
+              </div>
+              <span class="text-sm text-slate-400 font-medium">Reactive Setpoint</span>
+            </div>
+            <div class="flex items-end justify-between px-0 mt-4">
+              <div class="flex items-baseline gap-1">
+                <span class="text-3xl font-bold text-white">8</span>
+                <span class="text-sm text-slate-500 font-medium ml-1">kVAr</span>
+              </div>
+              <div class="text-lg font-semibold text-slate-300">0.2%</div>
+            </div>
+          </div>
+
+          <!-- Generator Power -->
+          <div class="setpoint-card">
+            <div class="flex items-center gap-3">
+              <div class="icon-box bg-emerald-500/10 text-emerald-400 h-9 w-9">
+                <i class="fa-solid fa-bolt text-xl"></i>
+              </div>
+              <span class="text-sm text-slate-400 font-medium">Generator Power</span>
+            </div>
+            <div class="flex items-end justify-between px-0 mt-4">
+              <div class="flex items-baseline gap-1">
+                <span class="text-3xl font-bold text-white">1,624</span>
+                <span class="text-sm text-slate-500 font-medium ml-1">kW</span>
+              </div>
+              <div class="text-lg font-semibold text-emerald-400">49.1%</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="overview-operator-sidebar w-full shrink-0">
+      <div class="operator-panel overview-local-panel flex min-h-0 w-full flex-col">
             <div class="panel-header">
               <div>Genset Local Operator Panel</div>
-              <div class="flex items-center gap-1.5 rounded-full border border-emerald-500/25 bg-emerald-500/10 px-2 py-0.5 text-xs font-bold text-emerald-400 shadow-sm">
-                <span class="h-1.5 w-1.5 shrink-0 animate-pulse rounded-full bg-emerald-500 shadow-[0_0_8px_rgba(16,185,129,0.65)]" aria-hidden="true"></span>
+              <div class="flex items-center gap-1.5 rounded-full border border-slate-600 bg-[#0f172a] px-2 py-0.5 text-xs font-bold text-emerald-400 shadow-sm">
+                <span class="h-1.5 w-1.5 shrink-0 animate-pulse rounded-full bg-emerald-500 drop-shadow-[0_0_2px_rgba(16,185,129,0.8)]" aria-hidden="true"></span>
                 G5
               </div>
             </div>
@@ -1462,7 +1251,7 @@
       </section>
 
       <section class="tab-panel" id="panel-engine-diagnostics" role="tabpanel" aria-labelledby="tab-engine-diagnostics" data-tab-panel="engine-diagnostics" hidden>
-        <div class="max-w-[67.5rem] w-full mx-auto flex flex-col lg:flex-row lg:items-start gap-4 lg:gap-5 engine-diagnostics-row">
+        <div class="max-w-[90rem] w-full mx-auto flex flex-col lg:flex-row lg:items-start gap-4 lg:gap-5 engine-diagnostics-row">
           <div class="w-full lg:max-w-[17rem] lg:flex-shrink-0 flex flex-col gap-3">
             <!-- T after TC -->
             <div class="metric-card">
@@ -1471,10 +1260,7 @@
               </div>
               <div class="metric-content">
                 <div class="metric-label">T after TC</div>
-                <div class="metric-value-row">
-                  <span class="metric-output-field">472</span>
-                  <span class="metric-unit">°C</span>
-                </div>
+                <div class="metric-value">472 <span class="metric-unit">°C</span></div>
               </div>
             </div>
             <!-- T SCR inlet -->
@@ -1484,10 +1270,7 @@
               </div>
               <div class="metric-content">
                 <div class="metric-label">T SCR inlet</div>
-                <div class="metric-value-row">
-                  <span class="metric-output-field">436</span>
-                  <span class="metric-unit">°C</span>
-                </div>
+                <div class="metric-value">436 <span class="metric-unit">°C</span></div>
               </div>
             </div>
           </div>
@@ -1495,15 +1278,12 @@
           <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
         <!-- Speed -->
         <div class="metric-card">
-          <div class="icon-box bg-emerald-500/10 text-emerald-400">
+          <div class="icon-box bg-blue-500/10 text-blue-400">
             <i class="fa-solid fa-bolt text-xl"></i>
           </div>
           <div class="metric-content">
             <div class="metric-label">Speed</div>
-            <div class="metric-value-row">
-              <span class="metric-output-field">1,505</span>
-              <span class="metric-unit">rpm</span>
-            </div>
+            <div class="metric-value">1,505 <span class="metric-unit">rpm</span></div>
           </div>
         </div>
 
@@ -1514,38 +1294,29 @@
           </div>
           <div class="metric-content">
             <div class="metric-label">Chamber Pressure</div>
-            <div class="metric-value-row">
-              <span class="metric-output-field">107.46</span>
-              <span class="metric-unit">psi</span>
-            </div>
+            <div class="metric-value">107.46 <span class="metric-unit">psi</span></div>
           </div>
         </div>
 
         <!-- Jacket Pressure -->
         <div class="metric-card">
-          <div class="icon-box bg-amber-500/10 text-amber-400">
+          <div class="icon-box bg-blue-500/10 text-blue-400">
             <i class="fa-solid fa-flask text-xl"></i>
           </div>
           <div class="metric-content">
             <div class="metric-label">Jacket Pressure</div>
-            <div class="metric-value-row">
-              <span class="metric-output-field">37.43</span>
-              <span class="metric-unit">psi</span>
-            </div>
+            <div class="metric-value">37.43 <span class="metric-unit">psi</span></div>
           </div>
         </div>
 
         <!-- Urea level -->
         <div class="metric-card">
-          <div class="icon-box bg-orange-500/10 text-orange-400">
+          <div class="icon-box bg-blue-500/10 text-blue-400">
             <i class="fa-solid fa-flask text-xl"></i>
           </div>
           <div class="metric-content">
             <div class="metric-label">Urea level</div>
-            <div class="metric-value-row">
-              <span class="metric-output-field">77</span>
-              <span class="metric-unit">%</span>
-            </div>
+            <div class="metric-value">77 <span class="metric-unit">%</span></div>
           </div>
         </div>
           </div>
@@ -1559,12 +1330,12 @@
               </div>
               <span class="text-sm text-slate-400 font-medium">Reactive Power</span>
             </div>
-            <div class="flex items-center justify-between px-1 mt-4 setpoint-output-row gap-2">
-              <div class="flex items-center gap-1.5 min-w-0 flex-1">
-                <span class="metric-output-field metric-output-field--setpoint-main">40</span>
-                <span class="setpoint-unit">kVAr</span>
+            <div class="flex items-end justify-between px-1 mt-4">
+              <div class="flex items-baseline gap-1">
+                <span class="text-3xl font-bold text-white">40</span>
+                <span class="text-sm text-slate-500 font-medium ml-1">kVAr</span>
               </div>
-              <span class="metric-output-field metric-output-field--setpoint-pct">1.1%</span>
+              <div class="text-lg font-semibold text-blue-400">1.1%</div>
             </div>
           </div>
         </div>
@@ -1655,49 +1426,6 @@
       requestAnimationFrame(syncTabContentMinHeightToOverview);
     });
     requestAnimationFrame(syncTabContentMinHeightToOverview);
-
-    (function initMultilevelDropdown() {
-      const mainBtn = document.getElementById('multiLevelDropdownButton');
-      const mainMenu = document.getElementById('multi-dropdown');
-      const subBtn = document.getElementById('doubleDropdownButton');
-      const subMenu = document.getElementById('doubleDropdown');
-      if (!mainBtn || !mainMenu) return;
-
-      function closeAll() {
-        mainMenu.classList.add('hidden');
-        mainBtn.setAttribute('aria-expanded', 'false');
-        if (subMenu) subMenu.classList.add('hidden');
-        if (subBtn) subBtn.setAttribute('aria-expanded', 'false');
-      }
-
-      mainBtn.addEventListener('click', (e) => {
-        e.stopPropagation();
-        mainMenu.classList.toggle('hidden');
-        const open = !mainMenu.classList.contains('hidden');
-        mainBtn.setAttribute('aria-expanded', String(open));
-        if (!open && subMenu) {
-          subMenu.classList.add('hidden');
-          if (subBtn) subBtn.setAttribute('aria-expanded', 'false');
-        }
-      });
-
-      if (subBtn && subMenu) {
-        subBtn.addEventListener('click', (e) => {
-          e.stopPropagation();
-          subMenu.classList.toggle('hidden');
-          subBtn.setAttribute('aria-expanded', String(!subMenu.classList.contains('hidden')));
-        });
-      }
-
-      document.addEventListener('click', (e) => {
-        if (e.target.closest('#multi-dropdown') || e.target.closest('#multiLevelDropdownButton')) return;
-        closeAll();
-      });
-
-      document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape') closeAll();
-      });
-    })();
   </script>
 </body>
 </html>

@@ -13,16 +13,17 @@
       display: flex;
       justify-content: center;
       align-items: flex-start;
-      padding: 0.875rem;
+      padding: clamp(5rem, 9vh, 7rem) clamp(1rem, 4vw, 3.5rem) clamp(2rem, 5vh, 4rem);
       font-family: system-ui, -apple-system, sans-serif;
       color: #f8fafc;
       background-color: #101a2d;
       background-image: radial-gradient(circle at 50% 0%, #18263b 0%, #101a2d 72%);
       background-attachment: fixed;
+      box-sizing: border-box;
     }
 
     .master-card {
-      width: min(120rem, calc(100vw - 1.75rem));
+      width: min(90rem, calc(100vw - clamp(5rem, 12vw, 10rem)));
       background: linear-gradient(180deg, rgba(12, 18, 34, 0.97), rgba(7, 11, 22, 0.985));
       border: 1px solid #27364b;
       border-radius: 2rem;
@@ -33,6 +34,14 @@
       display: flex;
       flex-direction: column;
       gap: 1.1rem;
+      /* Slightly stronger than mv-genset: this overview is taller (status + I/O grids) */
+      zoom: 0.86;
+    }
+
+    @media (max-height: 900px) {
+      .master-card {
+        zoom: 0.82;
+      }
     }
 
     .tab-nav {
@@ -66,6 +75,7 @@
 
     .tab-content {
       width: 100%;
+      overflow: visible;
     }
 
     .tab-panel {
@@ -80,13 +90,14 @@
     .overview-panel {
       display: flex;
       flex-direction: column;
-      gap: 1.55rem;
+      gap: 1.15rem;
     }
 
     @media (min-width: 1100px) {
       .overview-panel {
         flex-direction: row;
-        align-items: stretch;
+        /* Match mv-genset: top-align columns so the diagram rail is not stretched/clipped */
+        align-items: flex-start;
       }
     }
 
@@ -94,6 +105,7 @@
       width: 100%;
       max-width: 19rem;
       flex-shrink: 0;
+      align-self: flex-start;
     }
 
     .overview-diagram-card {
@@ -108,15 +120,16 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      min-height: 100%;
+      overflow: visible;
     }
 
     .genset-diagram-visual {
-      width: min(100%, 268px);
+      width: min(100%, 242px);
       margin: 0 auto;
     }
 
     .genset-diagram-panel {
+      overflow: visible;
       --diagram-stroke: #10b981;
       --diagram-stroke-muted: #94a3b8;
       --diagram-stroke-soft: rgba(241, 245, 249, 0.58);
@@ -221,7 +234,7 @@
       min-width: 0;
       display: flex;
       flex-direction: column;
-      gap: 1.3rem;
+      gap: 1.05rem;
     }
 
     .status-metrics-shell {
@@ -563,7 +576,7 @@
         <div class="overview-diagram-card">
           <div class="genset-diagram-visual">
             <div class="genset-diagram-panel">
-              <svg class="genset-diagram-svg" viewBox="0 0 228 612" role="img" aria-label="Single line diagram: breakers 52I, 52G, 52X, generator G35, EM power distribution">
+              <svg class="genset-diagram-svg" viewBox="0 0 228 612" overflow="visible" role="img" aria-label="Single line diagram: breakers 52I, 52G, 52X, generator G35, EM power distribution">
                 <rect x="0" y="0" width="228" height="612" rx="14" ry="14" fill="rgba(10, 16, 29, 0.08)"/>
                 <rect class="genset-diagram-fill" x="60" y="24" width="48" height="40" rx="0" ry="0" />
                 <text class="genset-diagram-label" x="84" y="44">52I</text>
