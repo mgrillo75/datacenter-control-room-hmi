@@ -96,6 +96,17 @@
       box-shadow: 0 16px 48px rgba(0, 0, 0, 0.4), 0 0 40px rgba(16, 185, 129, 0.08);
     }
 
+    .nav-card--backup {
+      background: linear-gradient(180deg, rgba(22, 18, 10, 0.95), rgba(12, 10, 6, 0.98));
+      border: 1px solid rgba(251, 191, 36, 0.25);
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3), 0 0 0 0 rgba(251, 191, 36, 0);
+    }
+
+    .nav-card--backup:hover {
+      border-color: rgba(251, 191, 36, 0.5);
+      box-shadow: 0 16px 48px rgba(0, 0, 0, 0.4), 0 0 40px rgba(251, 191, 36, 0.08);
+    }
+
     .nav-card-icon {
       width: 3.5rem;
       height: 3.5rem;
@@ -118,6 +129,12 @@
       color: #34d399;
     }
 
+    .nav-card--backup .nav-card-icon {
+      background: rgba(251, 191, 36, 0.1);
+      border: 1px solid rgba(251, 191, 36, 0.25);
+      color: #fcd34d;
+    }
+
     .nav-card-label {
       font-size: 1.05rem;
       font-weight: 700;
@@ -127,6 +144,7 @@
 
     .nav-card--genset .nav-card-label { color: #F0C4DD; }
     .nav-card--breaker .nav-card-label { color: #34d399; }
+    .nav-card--backup .nav-card-label { color: #fcd34d; }
 
     .nav-card-arrow {
       font-size: 0.85rem;
@@ -141,6 +159,7 @@
 
     .nav-card--genset .nav-card-arrow { color: #E8A4C8; }
     .nav-card--breaker .nav-card-arrow { color: #34d399; }
+    .nav-card--backup .nav-card-arrow { color: #fbbf24; }
   </style>
 </head>
 <body>
@@ -159,6 +178,12 @@
       <a href="/mv-breaker-gcb.html" class="nav-card nav-card--breaker">
         <div class="nav-card-icon"><i class="fa-solid fa-toggle-on"></i></div>
         <div class="nav-card-label">MV Breaker - Genset GCB</div>
+        <div class="nav-card-arrow"><i class="fa-solid fa-arrow-right"></i></div>
+      </a>
+
+      <a href="/backup-diesel-gen.html" class="nav-card nav-card--backup">
+        <div class="nav-card-icon"><i class="fa-solid fa-oil-can"></i></div>
+        <div class="nav-card-label">Backup Diesel Gen</div>
         <div class="nav-card-arrow"><i class="fa-solid fa-arrow-right"></i></div>
       </a>
     </div>

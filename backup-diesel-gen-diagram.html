@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Modern Genset Panel V7</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            slate: {
+              750: '#293548',
+              800: '#1e293b',
+              850: '#151f32',
+              900: '#0f172a',
+              950: '#050b14',
+            },
+            emerald: {
+              400: '#34d399',
+              500: '#10b981',
+            },
+            amber: {
+              400: '#fbbf24',
+              500: '#f59e0b',
+            },
+            blue: {
+              400: '#60a5fa',
+              500: '#3b82f6',
+              600: '#2563eb',
+            },
+            gray: {
+              50: '#f9fafb',
+              100: '#f3f4f6',
+              200: '#e5e7eb',
+              300: '#d1d5db',
+              400: '#9ca3af',
+              500: '#6b7280',
+              600: '#4b5563',
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    body {
+      background-color: #050b14;
+      color: #f8fafc;
+      font-family: system-ui, -apple-system, sans-serif;
+      background-image: radial-gradient(circle at 50% 0%, #0f172a 0%, #050b14 70%);
+      background-attachment: fixed;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      margin: 0;
+    }
+    
+    .gen-visual-stack {
+      --genset-stroke: #10b981;
+      --genset-stroke-w: 2px;
+      --genset-glow: 0 0 25px rgba(16, 185, 129, 0.2);
+    }
+
+    /* From symbols-html/breaker-standalone — bus tie above feed line */
+    .breaker {
+      --stroke: var(--genset-stroke, #10b981);
+      --stroke-w: var(--genset-stroke-w, 2px);
+      --glow: var(--genset-glow, 0 0 25px rgba(16, 185, 129, 0.2));
+      width: 57px;
+      height: 57px;
+      display: grid;
+      place-items: center;
+      flex-shrink: 0;
+      border: var(--stroke-w) solid var(--stroke);
+      background: linear-gradient(180deg, rgba(17, 26, 45, 0.98), rgba(15, 22, 39, 0.98));
+      box-shadow:
+        inset 0 0 0 1px rgba(16, 185, 129, 0.04),
+        0 0 0 1px rgba(16, 185, 129, 0.04),
+        var(--glow);
+      color: #eef2f7;
+      font-size: 20px;
+      font-weight: 400;
+      line-height: 1;
+      letter-spacing: -0.03em;
+    }
+
+    .gen-line-up {
+      width: var(--genset-stroke-w, 2px);
+      height: 3rem;
+      background-color: var(--genset-stroke, #10b981);
+      box-shadow: var(--genset-glow, 0 0 25px rgba(16, 185, 129, 0.2));
+      flex-shrink: 0;
+    }
+
+    .gen-line-up--2x {
+      height: 6rem;
+    }
+
+    .gen-circle {
+      width: 110px;
+      height: 110px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      background: radial-gradient(circle, rgba(16, 185, 129, 0.15) 0%, transparent 70%);
+      border: var(--genset-stroke-w, 2px) solid var(--genset-stroke, #10b981);
+      box-shadow: var(--genset-glow, 0 0 25px rgba(16, 185, 129, 0.2));
+      color: var(--genset-stroke, #10b981);
+    }
+
+  </style>
+</head>
+<body class="min-h-screen p-4 md:p-6 lg:p-8 flex justify-center items-center w-full">
+  <div class="bg-[#0f172a] border border-slate-800 rounded-lg px-4 py-4 flex flex-col items-center w-fit max-w-full box-border">
+        <div class="gen-visual-stack flex flex-col items-center my-3">
+          <div class="gen-line-up" aria-hidden="true"></div>
+          <div class="breaker" aria-label="Breaker 52I">52I</div>
+          <div class="gen-line-up gen-line-up--2x" aria-hidden="true"></div>
+          <div class="gen-circle">
+            <span class="relative z-10 flex items-center justify-center">
+              <svg xmlns="http://www.w3.org/2000/svg" width="40" height="20" viewBox="0 0 40 20" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M 4 10 Q 12 -2 20 10 T 36 10"></path>
+              </svg>
+            </span>
+          </div>
+        </div>
+  </div>
+</body>
+</html>
